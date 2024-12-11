@@ -17,6 +17,7 @@ export class IdeaEntity implements Entity<Idea> {
   public comments: Comment[];
   public likes: LikeDislike[];
   public dislikes: LikeDislike[];
+  public subDepartmentId: string;
   public createdAt?: Date;
   public updatedAt?: Date;
 
@@ -35,6 +36,7 @@ export class IdeaEntity implements Entity<Idea> {
     this.priority = entity.priority;
     this.authorId = entity.authorId;
     this.status = entity.status;
+    this.subDepartmentId = entity.subDepartmentId;
     this.comments = [];
     this.likes = [];
     this.dislikes = [];

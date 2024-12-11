@@ -1,0 +1,112 @@
+generator client {
+  provider = "prisma-client-js"
+  output = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+    id          String    @id @default(cuid())
+    name        String?
+    email       String?   @unique
+    status      Status    @default(Authorized)
+    ideas       Idea[]
+    comments    Comment[]
+    likes       Like[]
+    dislikes    Dislike[]
+    QrCode      QrCode[]
+}
+
+enum Status {
+    Authorized
+    Special
+    Master
+    Pro
+    Expert
+    SuperExpert
+}
+
+model QrCode {
+    id           String     @id @default(cuid())
+    user         User?      @relation(fields: [userId], references: [id])
+    userId       String?
+    department   Department @relation(fields: [departmentId], references: [id])
+    departmentId String
+}
+
+model Department {
+    id             String          @id @default(cuid())
+    name           String
+    subDepartments SubDepartment[]
+    qrCodes        QrCode[]
+    createdAt       DateTime      @default(now())
+    updatedAt       DateTime      @updatedAt 
+}
+
+model SubDepartment {
+    id           String     @id @default(cuid())
+    name         String
+    department   Department @relation(fields: [departmentId], references: [id])
+    departmentId String
+    ideas        Idea[]
+}
+
+model Idea {
+    id              String        @id @default(cuid())
+    title           String
+    description     String
+    priority        Priority      @default(Low)
+    createdAt       DateTime      @default(now())
+    updatedAt       DateTime      @updatedAt 
+    author          User          @relation(fields: [authorId], references: [id])
+    authorId        String
+    subDepartment   SubDepartment @relation(fields: [subDepartmentId], references: [id])
+    subDepartmentId String
+    status          IdeaStatus    @default(New)
+    comments        Comment[]
+    likes           Like[]
+    dislikes        Dislike[]
+}
+
+enum Priority {
+    Low
+    Medium
+    High
+}
+
+enum IdeaStatus {
+    New
+    InProgress
+    Completed
+    Canceled
+}
+
+model Comment {
+    id        String   @id @default(cuid())
+    content   String
+    idea      Idea     @relation(fields: [ideaId], references: [id])
+    ideaId    String
+    author    User     @relation(fields: [authorId], references: [id])
+    authorId  String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Like {
+    id     String @id @default(cuid())
+    idea   Idea   @relation(fields: [ideaId], references: [id])
+    ideaId String
+    user   User   @relation(fields: [userId], references: [id])
+    userId String
+}
+
+model Dislike {
+    id     String @id @default(cuid())
+    idea   Idea   @relation(fields: [ideaId], references: [id])
+    ideaId String
+    user   User   @relation(fields: [userId], references: [id])
+    userId String
+}

@@ -9,6 +9,7 @@ export interface Idea {
   description: string;
   priority: Priority;
   authorId: string;
+  subDepartmentId: string;
   status: IdeaStatus;
   comments: Comment[];
   likes: LikeDislike[];
