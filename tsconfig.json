@@ -18,18 +18,10 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@shared-types/shared-types": [
-        "libs/shared-types/src"
-      ],
-      "@shared-types/shared-types/*": [
-        "libs/shared-types/src/*"
-      ],
-      "@core/core": [
-        "libs/core/src"
-      ],
-      "@core/core/*": [
-        "libs/core/src/*"
-      ]
+      "@shared-types": ["libs/shared-types/src"],
+      "@shared-types/*": ["libs/shared-types/src/*"],
+      "@core": ["libs/core/src"],
+      "@core/*": ["libs/core/src/*"]
     }
   }
 }
