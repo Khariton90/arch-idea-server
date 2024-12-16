@@ -1,18 +1,14 @@
 import { Entity } from '@core';
-import { Comment, Idea, LikeDislike } from '@shared-types';
+import { Idea } from '@shared-types';
 
 export class IdeaEntity implements Entity<IdeaEntity>, Idea {
-  public title: string;
-  public description: string;
-  public priority: string;
-  public status: string;
-  public comments: Comment[];
-  public likes: LikeDislike[];
-  public dislikes: LikeDislike[];
-  public author: string;
-  public createdAt?: Date;
-  public updatedAt?: Date;
-  public subDepartmentId: string;
+  id?: string;
+  title: string;
+  description: string;
+  userId: string;
+  department: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 
   constructor(idea: Idea) {
     this.fillEntity(idea);
@@ -25,7 +21,7 @@ export class IdeaEntity implements Entity<IdeaEntity>, Idea {
   public fillEntity(entity: Idea): void {
     this.title = entity.title;
     this.description = entity.description;
-    this.author = entity.author;
-    this.subDepartmentId = entity.subDepartmentId;
+    this.userId = entity.userId;
+    this.department = entity.department;
   }
 }

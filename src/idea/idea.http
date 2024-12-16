@@ -1,0 +1,19 @@
+//Модуль Идеи
+
+@Host= localhost
+@Port= 3000
+
+@ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTRyN2JyZnIwMDA4czdvMzJiZXppbW04Iiwicm9sZSI6InVzZXIiLCJkZXBhcnRtZW50Ijoi0J_QsNGA0L3QsNGBIiwiaWF0IjoxNzM0MzYzNjMyLCJleHAiOjE3MzQzOTk2MzJ9.tuhvdiWnHkOeD_CFfRM9NPejSRCcsd3qEEFpDnipS8k
+
+# @name newIdea
+POST http://{{Host}}:{{Port}}/api/idea/create HTTP/1.1
+Content-Type: application/json
+Authorization: {{ApiKey}}
+
+{
+    "title": "Парнас",
+    "description":"Парнас",
+    "userId": "",
+    "department": ""
+}
+###

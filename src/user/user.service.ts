@@ -26,6 +26,21 @@ export class UserService {
       status: Status.Spec,
       department: department.title,
     });
+
     return await this.userRepository.create(entity);
+  }
+
+  public async findById(id: string) {
+    const user = await this.userRepository.findById(id);
+
+    if (!user) {
+      throw new UnauthorizedException(UNAUTHORIZED_MESSAGE);
+    }
+
+    return user;
+  }
+
+  public async findMany() {
+    return this.userRepository.findMany();
   }
 }

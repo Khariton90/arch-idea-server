@@ -1,0 +1,25 @@
+//Модуль Регистрации
+
+@Host= localhost
+@Port= 3000
+
+# @name department
+POST http://{{Host}}:{{Port}}/api/department/create HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "Парнас"
+}
+###
+
+@ApiKey = {{department.response.body.qrCodeHash}}
+
+# @name register 
+POST http://{{Host}}:{{Port}}/api/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "sub": "{{ApiKey}}"
+}
+
+###

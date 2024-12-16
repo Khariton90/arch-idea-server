@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { CRUDRepository } from '@core';
 import { UserEntity } from './user.entity';
 import { Role, User } from '@shared-types';
@@ -10,8 +11,14 @@ export class UserRepository
 {
   constructor(private readonly prisma: PrismaService) {}
 
-  public async findById(_id: string): Promise<User> {
-    throw new Error('Method not implemented.');
+  public async findMany(): Promise<User[]> {
+    return this.prisma.user.findMany();
+  }
+
+  public async findById(id: string): Promise<User> {
+    return this.prisma.user.findFirst({
+      where: { id },
+    });
   }
 
   public async create(item: UserEntity): Promise<User> {

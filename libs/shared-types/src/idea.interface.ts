@@ -1,17 +1,9 @@
-import { Comment } from './comment.interface';
-import { LikeDislike } from './like-dislike.interface';
-
 export interface Idea {
+  id?: string;
   title: string;
   description: string;
-  author: string;
-  subDepartmentId: string;
-  id?: string;
-  priority?: string;
-  status?: string;
-  comments?: Comment[];
-  likes?: LikeDislike[];
-  dislikes?: LikeDislike[];
+  userId: string;
+  department: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

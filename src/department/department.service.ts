@@ -15,9 +15,10 @@ export class DepartmentService {
       qrCodeHash: dto.title,
     });
 
-    if (await this.departmentRepository.findOne(entity.title)) {
-      throw new ConflictException(CONFLICT_DEPARTMENT_MESSAGE);
-    }
+    //TODO
+    // if (await this.departmentRepository.findOne(entity.title)) {
+    //   throw new ConflictException(CONFLICT_DEPARTMENT_MESSAGE);
+    // }
 
     await entity.setHash(dto.title);
     return await this.departmentRepository.create(entity);

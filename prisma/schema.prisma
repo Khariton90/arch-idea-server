@@ -15,11 +15,11 @@ model User {
     status          String
     role            String 
     department      String
-    // ideas       Idea[]
     // comments    Comment[]
     // likes       Like[]
     // dislikes    Dislike[]
     // qrCode      QrCode[]
+    ideas Idea[]
 }
 
 
@@ -56,21 +56,17 @@ model Department {
 //     departmentId String
 // }
 
-// model Idea {
-//     id              String        @id @default(cuid())
-//     title           String
-//     description     String
-//     priority        String?
-//     createdAt       DateTime?      @default(now())
-//     updatedAt       DateTime?      @updatedAt 
-//     author          User          @relation(fields: [authorId], references: [id])
-//     authorId        String
-//     subDepartmentId String
-//     status          IdeaStatus    @default(New)
-//     comments        Comment[]
-//     likes           Like[]
-//     dislikes        Dislike[]
-// }
+
+model Idea {
+    id              String        @id @default(cuid())
+    title           String
+    description     String
+    user            User          @relation(fields: [userId], references: [id])
+    userId          String
+    department      String
+    createdAt       DateTime?      @default(now())
+    updatedAt       DateTime?      @updatedAt 
+}
 
 // enum Priority {
 //     Low
