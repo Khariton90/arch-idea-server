@@ -5,3 +5,7 @@ export function fillObject<T, V>(someDto: ClassConstructor<T>, plainObject: V) {
     excludeExtraneousValues: true,
   });
 }
+
+export function replaceNullWithEmpty(value: string | null): string {
+  return value ?? '';
+}

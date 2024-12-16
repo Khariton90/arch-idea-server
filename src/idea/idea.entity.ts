@@ -1,44 +1,31 @@
 import { Entity } from '@core';
-import {
-  Comment,
-  Idea,
-  IdeaStatus,
-  LikeDislike,
-  Priority,
-} from '@shared-types';
+import { Comment, Idea, LikeDislike } from '@shared-types';
 
-export class IdeaEntity implements Entity<Idea> {
-  public id?: string;
+export class IdeaEntity implements Entity<IdeaEntity>, Idea {
   public title: string;
   public description: string;
-  public priority: Priority;
-  public authorId: string;
-  public status: IdeaStatus;
+  public priority: string;
+  public status: string;
   public comments: Comment[];
   public likes: LikeDislike[];
   public dislikes: LikeDislike[];
-  public subDepartmentId: string;
+  public author: string;
   public createdAt?: Date;
   public updatedAt?: Date;
+  public subDepartmentId: string;
 
   constructor(idea: Idea) {
     this.fillEntity(idea);
   }
 
-  public toObject(): Idea {
+  public toObject() {
     return { ...this };
   }
 
   public fillEntity(entity: Idea): void {
-    this.id = entity.id;
     this.title = entity.title;
     this.description = entity.description;
-    this.priority = entity.priority;
-    this.authorId = entity.authorId;
-    this.status = entity.status;
+    this.author = entity.author;
     this.subDepartmentId = entity.subDepartmentId;
-    this.comments = [];
-    this.likes = [];
-    this.dislikes = [];
   }
 }

@@ -1,8 +1,7 @@
 export enum Status {
-  Authorized = 'authorized',
-  Special = 'special',
+  Spec = 'spec',
   Master = 'master',
   Pro = 'pro',
   Expert = 'expert',
-  SuperExpert = 'superExpert',
+  Super = 'super',
 }
