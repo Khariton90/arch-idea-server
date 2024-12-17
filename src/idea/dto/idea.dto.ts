@@ -21,14 +21,6 @@ export class IdeaDto {
   description: string;
 
   @ApiProperty({
-    description: 'Unique userId',
-    example: 'eyJzdWIiOiIxMjM',
-  })
-  @Expose()
-  @IsString()
-  userId: string;
-
-  @ApiProperty({
     description: 'Idea Department',
     example: 'Офис',
   })

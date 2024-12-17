@@ -27,13 +27,6 @@ export class IdeaController {
     description: 'A new idea has been created',
   })
   async create(@Body() dto: IdeaDto, @Req() { user }: UserRequest) {
-    return fillObject(
-      IdeaRdo,
-      this.ideaService.create({
-        ...dto,
-        userId: user.sub,
-        department: user.department,
-      }),
-    );
+    return fillObject(IdeaRdo, this.ideaService.create(dto, user.sub));
   }
 }

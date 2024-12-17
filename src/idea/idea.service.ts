@@ -7,8 +7,8 @@ import { IdeaEntity } from './idea.entity';
 export class IdeaService {
   constructor(private readonly ideaRepository: IdeaRepository) {}
 
-  public async create(dto: IdeaDto) {
-    const entity = new IdeaEntity(dto);
+  public async create(dto: IdeaDto, userId: string) {
+    const entity = new IdeaEntity({ ...dto, userId: userId });
     return this.ideaRepository.create(entity);
   }
 }
