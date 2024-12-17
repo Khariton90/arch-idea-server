@@ -64,6 +64,9 @@ model Idea {
     user            User          @relation(fields: [userId], references: [id])
     userId          String
     department      String
+    subDepartment   String
+    priority        String
+    status          IdeaStatus?    @default(New)
     createdAt       DateTime?      @default(now())
     updatedAt       DateTime?      @updatedAt 
 }
@@ -74,12 +77,12 @@ model Idea {
 //     High
 // }
 
-// enum IdeaStatus {
-//     New
-//     InProgress
-//     Completed
-//     Canceled
-// }
+enum IdeaStatus {
+    New
+    InProgress
+    Completed
+    Canceled
+}
 
 // model Comment {
 //     id        String   @id @default(cuid())

@@ -12,6 +12,7 @@ import { IdeaService } from './idea.service';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { fillObject } from '@core';
+import { IdeaRdo } from './rdo/idea.rdo';
 
 @ApiTags('Idea')
 @Controller('idea')
@@ -22,12 +23,12 @@ export class IdeaController {
   @Post('/create')
   @ApiResponse({
     status: HttpStatus.CREATED,
-    type: IdeaDto,
+    type: IdeaRdo,
     description: 'A new idea has been created',
   })
   async create(@Body() dto: IdeaDto, @Req() { user }: UserRequest) {
     return fillObject(
-      IdeaDto,
+      IdeaRdo,
       this.ideaService.create({
         ...dto,
         userId: user.sub,

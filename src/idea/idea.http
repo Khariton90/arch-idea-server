@@ -3,7 +3,7 @@
 @Host= localhost
 @Port= 3000
 
-@ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTRyN2JyZnIwMDA4czdvMzJiZXppbW04Iiwicm9sZSI6InVzZXIiLCJkZXBhcnRtZW50Ijoi0J_QsNGA0L3QsNGBIiwiaWF0IjoxNzM0MzYzNjMyLCJleHAiOjE3MzQzOTk2MzJ9.tuhvdiWnHkOeD_CFfRM9NPejSRCcsd3qEEFpDnipS8k
+@ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTRzc2hpM2gwMDAxczcwN3V1MDg5MGJlIiwicm9sZSI6InVzZXIiLCJkZXBhcnRtZW50Ijoi0J_QsNGA0L3QsNGBIiwiaWF0IjoxNzM0NDU5NjM4LCJleHAiOjE3MzQ0OTU2Mzh9.olGyGOd-Tmppy2VH4k4gDhJMsivXEBdYKMqsJtSR7MQ
 
 # @name newIdea
 POST http://{{Host}}:{{Port}}/api/idea/create HTTP/1.1
@@ -14,6 +14,8 @@ Authorization: {{ApiKey}}
     "title": "Парнас",
     "description":"Парнас",
     "userId": "",
-    "department": ""
+    "department": "",
+    "subDepartment": "Склад",
+    "priority": "Низкий"
 }
 ###

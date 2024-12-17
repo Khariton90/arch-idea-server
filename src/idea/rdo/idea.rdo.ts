@@ -1,8 +1,17 @@
+import { IdeaStatus } from '@shared-types/idea-status.type';
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 import { IsString } from 'class-validator';
 
-export class IdeaDto {
+export class IdeaRdo {
+  @ApiProperty({
+    description: 'Unique idea ID',
+    example: 'eyJzdWIiOiIxMjM',
+  })
+  @Expose()
+  @IsString()
+  id: string;
+
   @ApiProperty({
     description: 'The main title is the idea.',
     example: 'New Idea',
@@ -45,10 +54,23 @@ export class IdeaDto {
   subDepartment: string;
 
   @ApiProperty({
-    description: 'Idea Priority',
-    example: 'Средний',
+    description: 'Idea Status',
+    example: 'New',
   })
   @Expose()
-  @IsString()
-  priority: string;
+  status: IdeaStatus;
+
+  @ApiProperty({
+    description: 'Idea createdAt',
+    example: '2024-12-17T18:24:07.306Z',
+  })
+  @Expose()
+  createdAt: Date;
+
+  @ApiProperty({
+    description: 'Idea updatedAt',
+    example: '2024-12-17T18:24:07.306Z',
+  })
+  @Expose()
+  updatedAt: Date;
 }

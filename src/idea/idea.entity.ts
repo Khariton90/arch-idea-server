@@ -1,5 +1,5 @@
 import { Entity } from '@core';
-import { Idea } from '@shared-types';
+import { Idea, IdeaStatus } from '@shared-types';
 
 export class IdeaEntity implements Entity<IdeaEntity>, Idea {
   id?: string;
@@ -7,6 +7,9 @@ export class IdeaEntity implements Entity<IdeaEntity>, Idea {
   description: string;
   userId: string;
   department: string;
+  subDepartment: string;
+  priority: string;
+  status: IdeaStatus;
   createdAt?: Date;
   updatedAt?: Date;
 
@@ -23,5 +26,8 @@ export class IdeaEntity implements Entity<IdeaEntity>, Idea {
     this.description = entity.description;
     this.userId = entity.userId;
     this.department = entity.department;
+    this.subDepartment = entity.subDepartment;
+    this.priority = entity.priority;
+    this.status = entity.status || 'New';
   }
 }
