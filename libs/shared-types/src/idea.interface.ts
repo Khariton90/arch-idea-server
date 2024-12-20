@@ -11,4 +11,6 @@ export interface Idea {
   status?: IdeaStatus;
   createdAt?: Date;
   updatedAt?: Date;
+  favoriteIdeasCount?: number;
+  dislikedIdeasCount?: number;
 }

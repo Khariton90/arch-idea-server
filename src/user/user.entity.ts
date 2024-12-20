@@ -8,6 +8,8 @@ export class UserEntity implements Entity<UserEntity>, User {
   role: string;
   status: string;
   department: string;
+  favoriteIdeasCount?: number;
+  myIdeasCount?: number;
 
   constructor(user: User) {
     this.fillEntity(user);
@@ -23,5 +25,7 @@ export class UserEntity implements Entity<UserEntity>, User {
     this.role = user.role;
     this.status = user.status;
     this.department = user.department;
+    this.favoriteIdeasCount = user.favoriteIdeasCount || 0;
+    this.myIdeasCount = user.myIdeasCount || 0;
   }
 }

@@ -9,6 +9,7 @@ import { DepartmentModule } from './department/department.module';
 import { jwtOptions } from './config/jwt.config';
 import envSchema from './env.schema';
 import { AppService } from './app.service';
+import { FavoriteIdeaModule } from './favorite-idea/favorite-idea.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AppService } from './app.service';
     UserModule,
     AuthModule,
     DepartmentModule,
+    FavoriteIdeaModule,
   ],
   providers: [AppService],
 })

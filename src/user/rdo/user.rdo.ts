@@ -2,7 +2,7 @@ import { replaceNullWithEmpty } from '@core';
 import { ApiProperty } from '@nestjs/swagger';
 import { Status } from '@shared-types';
 import { Expose, Transform } from 'class-transformer';
-import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UserRdo {
   @ApiProperty({
@@ -54,4 +54,22 @@ export class UserRdo {
   @Expose()
   @IsString()
   department: string;
+
+  @ApiProperty({
+    description: 'Favorite Ideas Count',
+    required: true,
+    example: '10',
+  })
+  @Expose()
+  @IsNumber()
+  favoriteIdeasCount: number;
+
+  @ApiProperty({
+    description: 'My Ideas Count',
+    required: true,
+    example: '10',
+  })
+  @Expose()
+  @IsNumber()
+  myIdeasCount: number;
 }

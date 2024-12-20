@@ -8,19 +8,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-    id              String    @id @default(cuid())
-    firstName       String?
-    lastName        String?
-    status          String
-    role            String 
-    department      String
-    // comments    Comment[]
-    // likes       Like[]
-    // dislikes    Dislike[]
-    // qrCode      QrCode[]
-    ideas Idea[]
-}
 
 
 // enum Status {
@@ -56,12 +43,33 @@ model Department {
 //     departmentId String
 // }
 
+model User {
+    id              String    @id @default(cuid())
+    firstName       String?
+    lastName        String?
+    status          String
+    role            String 
+    department      String
+    ideas           Idea[]    
+    favoriteIdeas   FavoriteIdea[] @relation("Favorites")
+    favoriteIdeasCount Int @default(0)
+    myIdeasCount       Int @default(0)
+}
+
+model FavoriteIdea {
+  userId  String
+  ideaId  String
+  user    User   @relation("Favorites", fields: [userId], references: [id])
+  idea    Idea   @relation("Favorites", fields: [ideaId], references: [id])
+  @@id([userId, ideaId]) 
+}
+
 
 model Idea {
-    id              String        @id @default(cuid())
+    id              String         @id @default(cuid())
     title           String
     description     String
-    user            User          @relation(fields: [userId], references: [id])
+    user            User           @relation(fields: [userId], references: [id])
     userId          String
     department      String
     subDepartment   String
@@ -69,6 +77,8 @@ model Idea {
     status          IdeaStatus?    @default(New)
     createdAt       DateTime?      @default(now())
     updatedAt       DateTime?      @updatedAt 
+    favoriteIdea FavoriteIdea[]    @relation("Favorites")
+
 }
 
 // enum Priority {

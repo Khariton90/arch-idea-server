@@ -22,14 +22,14 @@ import { IdeaQuery } from './query/idea.query';
 export class IdeaController {
   constructor(private readonly ideaService: IdeaService) {}
 
-  //TODO
+  @UseGuards(JwtAuthGuard)
   @Get('/')
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Array with Ideas was received',
   })
-  async findMany(@Query() query: IdeaQuery) {
-    return fillObject(IdeaRdo, this.ideaService.findMany(query));
+  async findMany(@Query() query: IdeaQuery, @Req() { user }: UserRequest) {
+    return fillObject(IdeaRdo, this.ideaService.findMany(query, user.sub));
   }
 
   @UseGuards(JwtAuthGuard)

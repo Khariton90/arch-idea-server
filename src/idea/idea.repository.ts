@@ -11,16 +11,27 @@ export class IdeaRepository
 {
   constructor(private readonly prisma: PrismaService) {}
 
-  public async findMany({
-    limit,
-    sortDirection,
-    page,
-  }: IdeaQuery): Promise<Idea[] | []> {
-    return this.prisma.idea.findMany({
+  public async findMany(
+    { limit, sortDirection, page }: IdeaQuery,
+    userId: string,
+  ): Promise<Idea[] | []> {
+    const ideas = await this.prisma.idea.findMany({
       take: limit,
       orderBy: [{ createdAt: sortDirection }],
       skip: page > 0 ? limit * (page - 1) : undefined,
+      include: {
+        favoriteIdea: {
+          where: {
+            userId,
+          },
+        },
+      },
     });
+
+    return ideas.map((idea) => ({
+      ...idea,
+      isFavorite: idea.favoriteIdea.length > 0,
+    }));
   }
 
   public async findById(id: string): Promise<Idea> {
@@ -29,6 +40,17 @@ export class IdeaRepository
 
   public async create(item: IdeaEntity): Promise<Idea> {
     const data = item.toObject();
+    await this.prisma.user.update({
+      where: {
+        id: item.userId,
+      },
+      data: {
+        myIdeasCount: {
+          increment: 1,
+        },
+      },
+    });
+
     return this.prisma.idea.create({
       data: { ...data },
     });

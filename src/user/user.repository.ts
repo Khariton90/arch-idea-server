@@ -25,7 +25,9 @@ export class UserRepository
     const data = item.toObject();
 
     return await this.prisma.user.create({
-      data: { ...data },
+      data: {
+        ...data,
+      },
     });
   }
 

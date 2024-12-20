@@ -1,7 +1,7 @@
 import { IdeaStatus } from '@shared-types/idea-status.type';
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
-import { IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsString } from 'class-validator';
 
 export class IdeaRdo {
   @ApiProperty({
@@ -73,4 +73,31 @@ export class IdeaRdo {
   })
   @Expose()
   updatedAt: Date;
+
+  @ApiProperty({
+    description: 'Favorite Ideas Count',
+    required: true,
+    example: '10',
+  })
+  @Expose()
+  @IsNumber()
+  favoriteIdeasCount: number;
+
+  @ApiProperty({
+    description: 'Disliked Ideas Count',
+    required: true,
+    example: '10',
+  })
+  @Expose()
+  @IsNumber()
+  dislikedIdeasCount: number;
+
+  @ApiProperty({
+    description: 'Is favorite Idea',
+    required: true,
+    example: 'true',
+  })
+  @Expose()
+  @IsBoolean()
+  isFavorite: boolean;
 }

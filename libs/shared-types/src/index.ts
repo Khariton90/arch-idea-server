@@ -11,3 +11,4 @@ export * from './user-status.enum';
 export * from './user.interface';
 export * from './token-payload.interface';
 export * from './user-request.interface';
+export * from './favorite-idea.interface';

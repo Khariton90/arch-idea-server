@@ -5,33 +5,23 @@
 
 @ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTR3c3U4NzgwMDAxczdicnZsbG9rdXZ2Iiwicm9sZSI6InVzZXIiLCJkZXBhcnRtZW50Ijoi0J_QsNGA0L3QsNGBIiwiaWF0IjoxNzM0NzAyMDk2LCJleHAiOjE3MzU1NjYwOTZ9.GaG-L_NhZKfaFeJTG0Q-o_Hj-fvNporDt9dC6FJIMMM
 
-# @name newIdea
-POST http://{{Host}}:{{Port}}/api/idea/create HTTP/1.1
-Content-Type: application/json
-Authorization: {{ApiKey}}
 
-{
-    "title": "3",
-    "description":"Парнас",
-    "userId": "",
-    "department": "",
-    "subDepartment": "Склад",
-    "priority": "Низкий"
-}
-###
-
-
-GET http://{{Host}}:{{Port}}/api/idea?limit=100&page=1&sortDirection=desc HTTP/1.1
+GET http://{{Host}}:{{Port}}/api/idea?limit=100&page=1 HTTP/1.1
 Content-Type: application/json
 Authorization: {{ApiKey}}
 ###
 
 
-GET   http://{{Host}}:{{Port}}/api/idea/favorite HTTP/1.1
+POST   http://{{Host}}:{{Port}}/api/favorite/cm4wsuy260007s7brm91v2gi3 HTTP/1.1
 Content-Type: application/json
 Authorization: {{ApiKey}}
 
-{
-    "id": "cm4wp4u1o0003s74wvrarsx7m"
-}
+
+###
+
+DELETE   http://{{Host}}:{{Port}}/api/favorite/cm4wsuy260007s7brm91v2gi3 HTTP/1.1
+Content-Type: application/json
+Authorization: {{ApiKey}}
+
+
 ###

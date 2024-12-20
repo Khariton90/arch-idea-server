@@ -13,7 +13,7 @@ export class IdeaService {
     return this.ideaRepository.create(entity);
   }
 
-  public async findMany(query: IdeaQuery) {
-    return this.ideaRepository.findMany(query);
+  public async findMany(query: IdeaQuery, userId: string) {
+    return this.ideaRepository.findMany(query, userId);
   }
 }
