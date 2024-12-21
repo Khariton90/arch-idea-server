@@ -34,8 +34,19 @@ export class IdeaRepository
     }));
   }
 
-  public async findById(id: string): Promise<Idea> {
-    throw new Error('Method not implemented.');
+  public async findById(id: string) {
+    const idea = await this.prisma.idea.findFirst({
+      where: { id },
+      include: {
+        favoriteIdea: {
+          where: {
+            ideaId: id,
+          },
+        },
+      },
+    });
+
+    return { ...idea, isFavorite: idea.favoriteIdea.length > 0 };
   }
 
   public async create(item: IdeaEntity): Promise<Idea> {

@@ -21,7 +21,12 @@ Authorization: {{ApiKey}}
 ###
 
 
-GET http://{{Host}}:{{Port}}/api/idea?limit=100&page=1&sortDirection=desc HTTP/1.1
+GET http://{{Host}}:{{Port}}/api/idea?limit=1&page=4&sortDirection=desc HTTP/1.1
+Content-Type: application/json
+Authorization: {{ApiKey}}
+###
+
+GET http://{{Host}}:{{Port}}/api/idea/cm4wsuq0a0003s7brckfrelv1 HTTP/1.1
 Content-Type: application/json
 Authorization: {{ApiKey}}
 ###

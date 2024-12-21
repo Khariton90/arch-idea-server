@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   HttpStatus,
+  Param,
   Post,
   Query,
   Req,
@@ -41,5 +42,15 @@ export class IdeaController {
   })
   async create(@Body() dto: IdeaDto, @Req() { user }: UserRequest) {
     return fillObject(IdeaRdo, this.ideaService.create(dto, user.sub));
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/:id')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Got an idea by ID',
+  })
+  async findById(@Param('id') id: string) {
+    return fillObject(IdeaRdo, this.ideaService.findOne(id));
   }
 }

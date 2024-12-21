@@ -24,7 +24,6 @@ export class FavoriteIdeaController {
     description: 'Idea added to favorites',
   })
   create(@Param('id') ideaId: string, @Req() { user }: UserRequest) {
-    console.log({ userId: user.sub, ideaId });
     return this.favoriteIdeaService.create({ userId: user.sub, ideaId });
   }
 
@@ -35,6 +34,6 @@ export class FavoriteIdeaController {
     description: 'The idea was removed from favorites',
   })
   remove(@Param('id') ideaId: string, @Req() { user }: UserRequest) {
-    return this.favoriteIdeaService.remove({ ideaId, userId: user.sub });
+    return this.favoriteIdeaService.remove({ userId: user.sub, ideaId });
   }
 }
