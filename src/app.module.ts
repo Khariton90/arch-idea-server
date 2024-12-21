@@ -10,6 +10,7 @@ import { jwtOptions } from './config/jwt.config';
 import envSchema from './env.schema';
 import { AppService } from './app.service';
 import { FavoriteIdeaModule } from './favorite-idea/favorite-idea.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { FavoriteIdeaModule } from './favorite-idea/favorite-idea.module';
     AuthModule,
     DepartmentModule,
     FavoriteIdeaModule,
+    CommentModule,
   ],
   providers: [AppService],
 })

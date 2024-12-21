@@ -1,7 +1,7 @@
 import { IdeaStatus } from '@shared-types/idea-status.type';
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
-import { IsBoolean, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsIn, IsNumber, IsString } from 'class-validator';
 
 export class IdeaRdo {
   @ApiProperty({
@@ -100,4 +100,13 @@ export class IdeaRdo {
   @Expose()
   @IsBoolean()
   isFavorite: boolean;
+
+  @ApiProperty({
+    description: 'Priority Idea',
+    required: true,
+    example: 'Low',
+  })
+  @Expose()
+  @IsIn(['Low', 'Medium', 'High'])
+  priority: boolean;
 }

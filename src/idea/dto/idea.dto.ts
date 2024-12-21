@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Priority } from '@shared-types';
 import { Expose } from 'class-transformer';
-import { IsString } from 'class-validator';
+import { IsIn, IsString } from 'class-validator';
 
 export class IdeaDto {
   @ApiProperty({
@@ -38,9 +39,10 @@ export class IdeaDto {
 
   @ApiProperty({
     description: 'Idea Priority',
-    example: 'Средний',
+    example: 'Medium',
   })
   @Expose()
   @IsString()
-  priority: string;
+  @IsIn(['Low', 'Medium', 'High'])
+  priority: Priority;
 }

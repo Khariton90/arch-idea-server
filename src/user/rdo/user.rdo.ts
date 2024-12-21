@@ -73,3 +73,46 @@ export class UserRdo {
   @IsNumber()
   myIdeasCount: number;
 }
+
+export class UserResponseDto {
+  @ApiProperty({
+    description: 'Unique ID',
+    required: true,
+    example: 'eyJzdWIiOiIxMjM',
+  })
+  @Expose()
+  @IsString()
+  id: string;
+
+  @ApiProperty({
+    description: 'User status',
+    required: true,
+    example: 'spec',
+  })
+  @Expose()
+  @IsString()
+  @IsEnum(Status)
+  status: string;
+
+  @ApiProperty({
+    description: 'User firstName',
+    required: true,
+    example: 'John',
+  })
+  @Expose()
+  @IsOptional()
+  @IsString()
+  @Transform(({ value }) => replaceNullWithEmpty(value))
+  firstName: string;
+
+  @ApiProperty({
+    description: 'User lastName',
+    required: true,
+    example: 'Doe',
+  })
+  @Expose()
+  @IsOptional()
+  @IsString()
+  @Transform(({ value }) => replaceNullWithEmpty(value))
+  lastName: string;
+}

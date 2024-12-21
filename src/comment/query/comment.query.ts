@@ -1,14 +1,14 @@
 import { Transform } from 'class-transformer';
 import { IsNumber, IsOptional, IsIn } from 'class-validator';
 
-const DEFAULT_IDEA_LIMIT = 10;
-const DEFAULT_SORT_DIRECTION = 'desc';
+const DEFAULT_COMMENT_LIMIT = 20;
+const DEFAULT_SORT_DIRECTION = 'asc';
 
-export class IdeaQuery {
-  @Transform(({ value }) => Number(value) || DEFAULT_IDEA_LIMIT)
+export class CommentQuery {
+  @Transform(({ value }) => Number(value) || DEFAULT_COMMENT_LIMIT)
   @IsNumber()
   @IsOptional()
-  public limit = DEFAULT_IDEA_LIMIT;
+  public limit = DEFAULT_COMMENT_LIMIT;
 
   @IsIn(['asc', 'desc'])
   @IsOptional()

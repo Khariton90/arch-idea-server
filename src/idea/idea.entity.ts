@@ -1,5 +1,5 @@
 import { Entity } from '@core';
-import { Idea, IdeaStatus } from '@shared-types';
+import { Idea, IdeaStatus, Priority } from '@shared-types';
 
 export class IdeaEntity implements Entity<IdeaEntity>, Idea {
   id?: string;
@@ -8,7 +8,7 @@ export class IdeaEntity implements Entity<IdeaEntity>, Idea {
   userId: string;
   department: string;
   subDepartment: string;
-  priority: string;
+  priority: Priority;
   status: IdeaStatus;
   createdAt?: Date;
   updatedAt?: Date;

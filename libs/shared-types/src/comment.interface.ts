@@ -2,7 +2,7 @@ export interface Comment {
   id?: string;
   content: string;
   ideaId: string;
-  authorId: string;
+  userId: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

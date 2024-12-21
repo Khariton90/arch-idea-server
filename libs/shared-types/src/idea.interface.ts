@@ -1,4 +1,5 @@
 import { IdeaStatus } from './idea-status.type';
+import { Priority } from './priority.type';
 
 export interface Idea {
   id?: string;
@@ -7,7 +8,7 @@ export interface Idea {
   userId: string;
   department: string;
   subDepartment: string;
-  priority: string;
+  priority: Priority;
   status?: IdeaStatus;
   createdAt?: Date;
   updatedAt?: Date;
