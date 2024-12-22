@@ -13,5 +13,6 @@ export interface Idea {
   createdAt?: Date;
   updatedAt?: Date;
   favoriteIdeasCount?: number;
-  dislikedIdeasCount?: number;
+  likesCount?: number;
+  dislikesCount?: number;
 }

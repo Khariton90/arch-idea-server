@@ -55,6 +55,8 @@ model User {
     favoriteIdeasCount Int @default(0)
     myIdeasCount       Int @default(0)
     comment Comment[]
+    likes Like[]
+    dislikes Dislike[]
 }
 
 model FavoriteIdea {
@@ -78,8 +80,10 @@ model Idea {
     status          IdeaStatus?    @default(New)
     createdAt       DateTime?      @default(now())
     updatedAt       DateTime?      @updatedAt 
-    favoriteIdea FavoriteIdea[]    @relation("Favorites")
+    favoriteIdea    FavoriteIdea[] @relation("Favorites")
     comment Comment[]
+    likes Like[]
+    dislikes Dislike[]
 }
 
 enum Priority {
@@ -106,18 +110,18 @@ model Comment {
     updatedAt DateTime @updatedAt
 }
 
-// model Like {
-//     id     String @id @default(cuid())
-//     idea   Idea   @relation(fields: [ideaId], references: [id])
-//     ideaId String
-//     user   User   @relation(fields: [userId], references: [id])
-//     userId String
-// }
+model Like {
+    ideaId String
+    userId String
+    idea   Idea   @relation(fields: [ideaId], references: [id])  
+    user   User   @relation(fields: [userId], references: [id])
+    @@id([userId, ideaId]) 
+}    
 
-// model Dislike {
-//     id     String @id @default(cuid())
-//     idea   Idea   @relation(fields: [ideaId], references: [id])
-//     ideaId String
-//     user   User   @relation(fields: [userId], references: [id])
-//     userId String
-// }
+model Dislike {
+    ideaId String
+    userId String
+    idea   Idea   @relation(fields: [ideaId], references: [id])
+    user   User   @relation(fields: [userId], references: [id])
+    @@id([userId, ideaId]) 
+}

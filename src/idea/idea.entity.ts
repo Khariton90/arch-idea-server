@@ -10,6 +10,8 @@ export class IdeaEntity implements Entity<IdeaEntity>, Idea {
   subDepartment: string;
   priority: Priority;
   status: IdeaStatus;
+  dislikesCount?: number;
+  likesCount?: number;
   createdAt?: Date;
   updatedAt?: Date;
 

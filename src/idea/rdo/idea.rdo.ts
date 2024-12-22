@@ -61,6 +61,51 @@ export class IdeaRdo {
   status: IdeaStatus;
 
   @ApiProperty({
+    description: 'Favorite Ideas Count',
+    required: true,
+    example: '10',
+  })
+  @Expose()
+  @IsNumber()
+  favoriteIdeasCount: number;
+
+  @ApiProperty({
+    description: 'Is favorite idea',
+    required: true,
+    example: 'true',
+  })
+  @Expose()
+  @IsBoolean()
+  isFavorite: boolean;
+
+  @ApiProperty({
+    description: 'Priority idea',
+    required: true,
+    example: 'Low',
+  })
+  @Expose()
+  @IsIn(['Low', 'Medium', 'High'])
+  priority: boolean;
+
+  @ApiProperty({
+    description: 'The number of likes for this idea',
+    required: true,
+    example: '1',
+  })
+  @Expose()
+  @IsNumber()
+  likesCount: number;
+
+  @ApiProperty({
+    description: 'The number of dislikes for this idea',
+    required: true,
+    example: '1',
+  })
+  @Expose()
+  @IsNumber()
+  dislikesCount: number;
+
+  @ApiProperty({
     description: 'Idea createdAt',
     example: '2024-12-17T18:24:07.306Z',
   })
@@ -73,40 +118,4 @@ export class IdeaRdo {
   })
   @Expose()
   updatedAt: Date;
-
-  @ApiProperty({
-    description: 'Favorite Ideas Count',
-    required: true,
-    example: '10',
-  })
-  @Expose()
-  @IsNumber()
-  favoriteIdeasCount: number;
-
-  @ApiProperty({
-    description: 'Disliked Ideas Count',
-    required: true,
-    example: '10',
-  })
-  @Expose()
-  @IsNumber()
-  dislikedIdeasCount: number;
-
-  @ApiProperty({
-    description: 'Is favorite Idea',
-    required: true,
-    example: 'true',
-  })
-  @Expose()
-  @IsBoolean()
-  isFavorite: boolean;
-
-  @ApiProperty({
-    description: 'Priority Idea',
-    required: true,
-    example: 'Low',
-  })
-  @Expose()
-  @IsIn(['Low', 'Medium', 'High'])
-  priority: boolean;
 }

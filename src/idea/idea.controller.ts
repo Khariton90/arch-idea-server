@@ -27,6 +27,7 @@ export class IdeaController {
   @Get('/')
   @ApiResponse({
     status: HttpStatus.OK,
+    type: [IdeaRdo],
     description: 'Array with Ideas was received',
   })
   async findMany(@Query() query: IdeaQuery, @Req() { user }: UserRequest) {
@@ -50,7 +51,7 @@ export class IdeaController {
     status: HttpStatus.OK,
     description: 'Got an idea by ID',
   })
-  async findById(@Param('id') id: string) {
-    return fillObject(IdeaRdo, this.ideaService.findOne(id));
+  async findById(@Param('id') ideaId: string, @Req() { user }: UserRequest) {
+    return fillObject(IdeaRdo, this.ideaService.findOne(ideaId, user.sub));
   }
 }

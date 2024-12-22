@@ -18,9 +18,10 @@ export class IdeaService {
   public async findMany(query: IdeaQuery, userId: string) {
     return this.ideaRepository.findMany(query, userId);
   }
-  public async findOne(ideaId: string) {
+
+  public async findOne(ideaId: string, userId: string) {
     try {
-      return await this.ideaRepository.findById(ideaId);
+      return await this.ideaRepository.findById(ideaId, userId);
     } catch {
       throw new NotFoundException(NOT_FOUND_IDEA_MESSAGE);
     }

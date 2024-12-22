@@ -11,6 +11,7 @@ import envSchema from './env.schema';
 import { AppService } from './app.service';
 import { FavoriteIdeaModule } from './favorite-idea/favorite-idea.module';
 import { CommentModule } from './comment/comment.module';
+import { LikeModule } from './like/like.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { CommentModule } from './comment/comment.module';
     DepartmentModule,
     FavoriteIdeaModule,
     CommentModule,
+    LikeModule,
   ],
   providers: [AppService],
 })

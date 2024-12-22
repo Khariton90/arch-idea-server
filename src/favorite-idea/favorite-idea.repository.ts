@@ -21,9 +21,12 @@ export class FavoriteIdeaRepository {
       },
     });
 
-    return this.prisma.favoriteIdea.create({
+    const idea = await this.prisma.favoriteIdea.create({
       data: { ...data },
     });
+
+    console.log(idea);
+    return idea;
   }
 
   public async destroy({

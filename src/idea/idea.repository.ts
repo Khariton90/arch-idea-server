@@ -1,4 +1,3 @@
-import { CRUDRepository } from '@core';
 import { IdeaEntity } from './idea.entity';
 import { Idea } from '@shared-types';
 import { Injectable } from '@nestjs/common';
@@ -6,9 +5,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { IdeaQuery } from './query/idea.query';
 
 @Injectable()
-export class IdeaRepository
-  implements CRUDRepository<IdeaEntity, string, Idea>
-{
+export class IdeaRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   public async findMany(
@@ -25,28 +22,55 @@ export class IdeaRepository
             userId,
           },
         },
-      },
-    });
-
-    return ideas.map((idea) => ({
-      ...idea,
-      isFavorite: idea.favoriteIdea.length > 0,
-    }));
-  }
-
-  public async findById(id: string) {
-    const idea = await this.prisma.idea.findFirst({
-      where: { id },
-      include: {
-        favoriteIdea: {
+        likes: {
           where: {
-            ideaId: id,
+            userId,
+          },
+        },
+        dislikes: {
+          where: {
+            userId,
           },
         },
       },
     });
 
-    return { ...idea, isFavorite: idea.favoriteIdea.length > 0 };
+    return ideas.map((idea) => ({
+      isFavorite: idea.favoriteIdea.length > 0,
+      likesCount: idea.likes.length,
+      dislikesCount: idea.dislikes.length,
+      ...idea,
+    }));
+  }
+
+  public async findById(ideaId: string, userId: string) {
+    const idea = await this.prisma.idea.findFirst({
+      where: { id: ideaId },
+      include: {
+        favoriteIdea: {
+          where: {
+            userId,
+          },
+        },
+        likes: {
+          where: {
+            userId,
+          },
+        },
+        dislikes: {
+          where: {
+            userId,
+          },
+        },
+      },
+    });
+
+    return {
+      isFavorite: idea.favoriteIdea.length > 0,
+      likesCount: idea.likes.length,
+      dislikesCount: idea.dislikes.length,
+      ...idea,
+    };
   }
 
   public async create(item: IdeaEntity): Promise<Idea> {
@@ -65,13 +89,5 @@ export class IdeaRepository
     return this.prisma.idea.create({
       data: { ...data },
     });
-  }
-
-  public async update(id: string, item: IdeaEntity): Promise<Idea> {
-    throw new Error('Method not implemented.');
-  }
-
-  public async destroy(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
   }
 }
