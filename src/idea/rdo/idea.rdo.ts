@@ -2,6 +2,7 @@ import { IdeaStatus } from '@shared-types/idea-status.type';
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 import { IsBoolean, IsIn, IsNumber, IsString } from 'class-validator';
+import { ReactionType } from '@shared-types';
 
 export class IdeaRdo {
   @ApiProperty({
@@ -104,6 +105,15 @@ export class IdeaRdo {
   @Expose()
   @IsNumber()
   dislikesCount: number;
+
+  @ApiProperty({
+    description: 'Reaction type',
+    required: true,
+    example: 'Like',
+  })
+  @Expose()
+  @IsIn(['None', 'Like', 'Dislike'])
+  reactionType: ReactionType;
 
   @ApiProperty({
     description: 'Idea createdAt',

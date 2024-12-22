@@ -10,6 +10,8 @@ import { LikeService } from './like.service';
 import { UserRequest } from '@shared-types';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { ApiTags } from '@nestjs/swagger';
+import { fillObject } from '@core';
+import { LikeRdo } from './rdo/like.rdo';
 
 @ApiTags('Like')
 @Controller('like')
@@ -18,13 +20,19 @@ export class LikeController {
 
   @UseGuards(JwtAuthGuard)
   @Post(':id')
-  create(@Param('id') ideaId: string, @Req() { user }: UserRequest) {
-    return this.likeService.create({ ideaId, userId: user.sub });
+  async create(@Param('id') ideaId: string, @Req() { user }: UserRequest) {
+    return fillObject(
+      LikeRdo,
+      this.likeService.create({ ideaId, userId: user.sub }),
+    );
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id') ideaId: string, @Req() { user }: UserRequest) {
-    return this.likeService.remove({ ideaId, userId: user.sub });
+  async remove(@Param('id') ideaId: string, @Req() { user }: UserRequest) {
+    return fillObject(
+      LikeRdo,
+      this.likeService.remove({ ideaId, userId: user.sub }),
+    );
   }
 }

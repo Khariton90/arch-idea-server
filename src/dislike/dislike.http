@@ -5,7 +5,7 @@
 
 @ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTR6dmlkOHowMDAxczdmaGJ3aDIzY3I5Iiwicm9sZSI6InVzZXIiLCJkZXBhcnRtZW50Ijoi0J_QsNGA0L3QsNGBIiwiaWF0IjoxNzM0ODg3OTgwLCJleHAiOjE3MzU3NTE5ODB9.joYC1RIWYf6QjvFO1oqP7N6Igk60GYRmsxYFQo3R4zc
 # @name newIdea
-POST http://{{Host}}:{{Port}}/api/like/cm4ztvonw0003s796wbzaj4xd HTTP/1.1
+POST http://{{Host}}:{{Port}}/api/dislike/cm4ztvonw0003s796wbzaj4xd HTTP/1.1
 Content-Type: application/json
 Authorization: {{ApiKey}}
 

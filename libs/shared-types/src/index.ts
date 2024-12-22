@@ -12,3 +12,4 @@ export * from './user.interface';
 export * from './token-payload.interface';
 export * from './user-request.interface';
 export * from './favorite-idea.interface';
+export * from './reaction.type';

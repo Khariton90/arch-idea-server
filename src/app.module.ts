@@ -12,6 +12,7 @@ import { AppService } from './app.service';
 import { FavoriteIdeaModule } from './favorite-idea/favorite-idea.module';
 import { CommentModule } from './comment/comment.module';
 import { LikeModule } from './like/like.module';
+import { DislikeModule } from './dislike/dislike.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { LikeModule } from './like/like.module';
     FavoriteIdeaModule,
     CommentModule,
     LikeModule,
+    DislikeModule,
   ],
   providers: [AppService],
 })

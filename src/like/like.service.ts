@@ -2,10 +2,14 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { LikeRepository } from './like.repository';
 import { LikeEntity } from './like.entity';
 import { LikeDto } from './dto/like.dto';
+import { DislikeRepository } from 'src/dislike/dislike.repository';
 
 @Injectable()
 export class LikeService {
-  constructor(private readonly likeRepository: LikeRepository) {}
+  constructor(
+    private readonly likeRepository: LikeRepository,
+    private readonly dislikeRepository: DislikeRepository,
+  ) {}
 
   async create(dto: LikeDto) {
     try {
@@ -13,6 +17,12 @@ export class LikeService {
 
       if (existLike) {
         return this.remove(dto);
+      }
+
+      const existDislike = await this.dislikeRepository.findById(dto);
+
+      if (existDislike) {
+        await this.dislikeRepository.destroy(dto);
       }
 
       const entity = new LikeEntity(dto);

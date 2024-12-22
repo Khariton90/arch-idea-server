@@ -1,8 +1,20 @@
 import { IdeaEntity } from './idea.entity';
-import { Idea } from '@shared-types';
+import { Idea, ReactionType } from '@shared-types';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { IdeaQuery } from './query/idea.query';
+
+function getReactionType(likes: number, dislikes: number): ReactionType {
+  if (likes) {
+    return 'Like' as ReactionType;
+  }
+
+  if (dislikes) {
+    return 'Dislike' as ReactionType;
+  }
+
+  return 'None' as ReactionType;
+}
 
 @Injectable()
 export class IdeaRepository {
@@ -39,6 +51,7 @@ export class IdeaRepository {
       isFavorite: idea.favoriteIdea.length > 0,
       likesCount: idea.likes.length,
       dislikesCount: idea.dislikes.length,
+      reactionType: getReactionType(idea.likes.length, idea.dislikes.length),
       ...idea,
     }));
   }
@@ -69,6 +82,7 @@ export class IdeaRepository {
       isFavorite: idea.favoriteIdea.length > 0,
       likesCount: idea.likes.length,
       dislikesCount: idea.dislikes.length,
+      reactionType: getReactionType(idea.likes.length, idea.dislikes.length),
       ...idea,
     };
   }
