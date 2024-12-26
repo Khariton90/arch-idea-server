@@ -1,9 +1,15 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserEntity } from './user.entity';
 import { DepartmentRepository } from '../department/department.repository';
 import { Status } from '@shared-types';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 const UNAUTHORIZED_MESSAGE = 'Access is denied';
 
@@ -42,5 +48,19 @@ export class UserService {
 
   public async findMany() {
     return this.userRepository.findMany();
+  }
+
+  public async updateUser(id: string, { firstName, lastName }: UpdateUserDto) {
+    try {
+      const existUser = await this.userRepository.findById(id);
+      if (existUser) {
+        const entity = new UserEntity({ ...existUser, firstName, lastName });
+        return await this.userRepository.update(id, entity);
+      }
+
+      throw new NotFoundException();
+    } catch {
+      throw new BadRequestException();
+    }
   }
 }

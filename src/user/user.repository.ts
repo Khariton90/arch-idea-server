@@ -31,8 +31,13 @@ export class UserRepository
     });
   }
 
-  public async update(_id: string, _item: UserEntity): Promise<User> {
-    throw new Error('Method not implemented.');
+  public async update(id: string, item: UserEntity): Promise<User> {
+    const data = item.toObject();
+
+    return await this.prisma.user.update({
+      where: { id },
+      data: data,
+    });
   }
 
   public async destroy(_id: string): Promise<void> {

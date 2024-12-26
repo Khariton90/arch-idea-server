@@ -13,6 +13,7 @@ import { UserRdo } from './rdo/user.rdo';
 import { UserRequest } from '@shared-types';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @ApiTags('User')
 @Controller('user')
@@ -48,5 +49,16 @@ export class UserController {
   })
   async findById(@Req() { user }: UserRequest) {
     return fillObject(UserRdo, this.userService.findById(user.sub));
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('update')
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    type: UserRdo,
+    description: 'A user profile has been updated',
+  })
+  async update(@Body() body: UpdateUserDto, @Req() { user }: UserRequest) {
+    return fillObject(UserRdo, this.userService.updateUser(user.sub, body));
   }
 }
