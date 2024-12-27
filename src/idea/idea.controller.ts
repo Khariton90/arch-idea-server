@@ -35,6 +35,17 @@ export class IdeaController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get('/my-ideas')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: [IdeaRdo],
+    description: 'Array with User Ideas was received',
+  })
+  async findUserIdeas(@Query() query: IdeaQuery, @Req() { user }: UserRequest) {
+    return fillObject(IdeaRdo, this.ideaService.findUserIdeas(query, user.sub));
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Post('/create')
   @ApiResponse({
     status: HttpStatus.CREATED,

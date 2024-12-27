@@ -15,8 +15,12 @@ export class IdeaService {
     return this.ideaRepository.create(entity);
   }
 
+  public async findUserIdeas(query: IdeaQuery, userId: string) {
+    return await this.ideaRepository.findUserIdeas(query, userId);
+  }
+
   public async findMany(query: IdeaQuery, userId: string) {
-    return this.ideaRepository.findMany(query, userId);
+    return await this.ideaRepository.findMany(query, userId);
   }
 
   public async findOne(ideaId: string, userId: string) {
