@@ -35,7 +35,7 @@ export class IdeaController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('/my-ideas')
+  @Get('my-ideas')
   @ApiResponse({
     status: HttpStatus.OK,
     type: [IdeaRdo],
@@ -46,7 +46,24 @@ export class IdeaController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('/create')
+  @Get('favorite-ideas')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: [IdeaRdo],
+    description: 'Array with Favorite Ideas was received',
+  })
+  async findFavoriteIdeas(
+    @Query() query: IdeaQuery,
+    @Req() { user }: UserRequest,
+  ) {
+    return fillObject(
+      IdeaRdo,
+      this.ideaService.findFavoriteIdeas(query, user.sub),
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('create')
   @ApiResponse({
     status: HttpStatus.CREATED,
     type: IdeaRdo,
@@ -57,7 +74,7 @@ export class IdeaController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('/:id')
+  @Get(':id')
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Got an idea by ID',

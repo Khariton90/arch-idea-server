@@ -9,6 +9,42 @@ import { getReactionType } from '@core';
 export class IdeaRepository {
   constructor(private readonly prisma: PrismaService) {}
 
+  public async findMany(
+    { limit, sortDirection, page }: IdeaQuery,
+    userId: string,
+  ): Promise<Idea[] | []> {
+    const ideas = await this.prisma.idea.findMany({
+      take: limit,
+      orderBy: [{ createdAt: sortDirection }],
+      skip: page > 0 ? limit * (page - 1) : undefined,
+      include: {
+        favoriteIdea: {
+          where: {
+            userId,
+          },
+        },
+        likes: {
+          where: {
+            userId,
+          },
+        },
+        dislikes: {
+          where: {
+            userId,
+          },
+        },
+      },
+    });
+
+    return ideas.map((idea) => ({
+      isFavorite: idea.favoriteIdea.length > 0,
+      likesCount: idea.likes.length,
+      dislikesCount: idea.dislikes.length,
+      reactionType: getReactionType(idea.likes.length, idea.dislikes.length),
+      ...idea,
+    }));
+  }
+
   public async findUserIdeas(
     { limit, sortDirection, page }: IdeaQuery,
     userId: string,
@@ -36,30 +72,25 @@ export class IdeaRepository {
     }));
   }
 
-  public async findMany(
+  public async findFavoriteIdeas(
     { limit, sortDirection, page }: IdeaQuery,
     userId: string,
-  ): Promise<Idea[] | []> {
+  ): Promise<Idea[]> {
     const ideas = await this.prisma.idea.findMany({
+      where: {
+        favoriteIdea: {
+          some: {
+            userId,
+          },
+        },
+      },
       take: limit,
       orderBy: [{ createdAt: sortDirection }],
       skip: page > 0 ? limit * (page - 1) : undefined,
       include: {
-        favoriteIdea: {
-          where: {
-            userId,
-          },
-        },
-        likes: {
-          where: {
-            userId,
-          },
-        },
-        dislikes: {
-          where: {
-            userId,
-          },
-        },
+        favoriteIdea: true,
+        likes: true,
+        dislikes: true,
       },
     });
 
