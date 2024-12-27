@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Location } from '@shared-types';
 import { Expose } from 'class-transformer';
-import { IsString } from 'class-validator';
+import { IsIn, IsString } from 'class-validator';
 
 export class DepartmentRdo {
   @ApiProperty({
@@ -13,13 +14,24 @@ export class DepartmentRdo {
   id: string;
 
   @ApiProperty({
-    type: String,
-    description: 'Title Department',
-    example: 'Офис',
+    type: Location,
+    description: 'Department name',
+    example: 'Parnas',
   })
   @Expose()
   @IsString()
-  title: string;
+  @IsIn([
+    'Parnas',
+    'Industrialny',
+    'KadSever',
+    'Planernaya',
+    'Murmanskoe',
+    'Sofiyskaya',
+    'Tallinskaya',
+    'Slavyanka',
+    'Other',
+  ])
+  title: Location;
 
   @ApiProperty({
     type: String,

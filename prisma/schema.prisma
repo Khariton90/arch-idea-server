@@ -10,15 +10,6 @@ datasource db {
 
 
 
-// enum Status {
-//     Authorized
-//     Special
-//     Master
-//     Pro
-//     Expert
-//     SuperExpert
-// }
-
 // model QrCode {
 //     id           String     @id @default(cuid())
 //     user         User?      @relation(fields: [userId], references: [id])
@@ -27,29 +18,47 @@ datasource db {
 //     departmentId String
 // }
 
+enum Location {
+  Parnas
+  Industrialny
+  KadSever
+  Planernaya
+  Murmanskoe
+  Sofiyskaya
+  Tallinskaya
+  Slavyanka
+  Other
+}
+
 model Department {
     id             String          @id @default(cuid())
-    title          String
+    title          Location
     qrCodeHash     String
     createdAt      DateTime      @default(now())
     updatedAt      DateTime      @updatedAt 
 }
 
+enum Status {
+    Spec
+    Master
+    Pro
+    Expert
+    SuperExpert
+}
 
-// model SubDepartment {
-//     id           String     @id @default(cuid())
-//     name         String
-//     department   Department @relation(fields: [departmentId], references: [id])
-//     departmentId String
-// }
+enum Role {
+    Admin
+    Manager
+    User
+}
 
 model User {
     id              String    @id @default(cuid())
     firstName       String?
     lastName        String?
-    status          String
-    role            String 
-    department      String
+    status          Status?  @default(Spec)
+    role            Role?    @default(User)
+    department      Location
     ideas           Idea[]    
     favoriteIdeas   FavoriteIdea[] @relation("Favorites")
     favoriteIdeasCount Int @default(0)
@@ -68,14 +77,21 @@ model FavoriteIdea {
 }
 
 
+enum SubDepartment {
+  Warehouse
+  SalesFloor
+  CommercialDepartment
+  Other
+}
+
 model Idea {
     id              String         @id @default(cuid())
     title           String
     description     String
     user            User           @relation(fields: [userId], references: [id])
     userId          String
-    department      String
-    subDepartment   String
+    department      Location
+    subDepartment   SubDepartment
     priority        Priority       @default(Low)
     status          IdeaStatus?    @default(New)
     createdAt       DateTime?      @default(now())

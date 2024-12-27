@@ -13,16 +13,16 @@ export class LikeService {
 
   async create(dto: LikeDto) {
     try {
-      const existLike = await this.likeRepository.findById(dto);
-
-      if (existLike) {
-        return this.remove(dto);
-      }
-
       const existDislike = await this.dislikeRepository.findById(dto);
 
       if (existDislike) {
         await this.dislikeRepository.destroy(dto);
+      }
+
+      const existLike = await this.likeRepository.findById(dto);
+
+      if (existLike) {
+        return await this.likeRepository.destroy(dto);
       }
 
       const entity = new LikeEntity(dto);

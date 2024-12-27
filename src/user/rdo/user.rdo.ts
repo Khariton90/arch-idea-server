@@ -1,8 +1,8 @@
 import { replaceNullWithEmpty } from '@core';
 import { ApiProperty } from '@nestjs/swagger';
-import { Status } from '@shared-types';
+import { UserStatus } from '@shared-types';
 import { Expose, Transform } from 'class-transformer';
-import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UserRdo {
   @ApiProperty({
@@ -39,12 +39,11 @@ export class UserRdo {
   @ApiProperty({
     description: 'User status',
     required: true,
-    example: 'spec',
+    example: 'Spec',
   })
   @Expose()
   @IsString()
-  @IsEnum(Status)
-  status: string = Status.Spec;
+  status: UserStatus = 'Spec';
 
   @ApiProperty({
     description: 'User Department',
@@ -87,12 +86,11 @@ export class UserResponseDto {
   @ApiProperty({
     description: 'User status',
     required: true,
-    example: 'spec',
+    example: 'Spec',
   })
   @Expose()
   @IsString()
-  @IsEnum(Status)
-  status: string;
+  status: UserStatus;
 
   @ApiProperty({
     description: 'User firstName',

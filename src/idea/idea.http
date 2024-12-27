@@ -3,24 +3,23 @@
 @Host= localhost
 @Port= 3000
 
-@ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTR6dmlkOHowMDAxczdmaGJ3aDIzY3I5Iiwicm9sZSI6InVzZXIiLCJkZXBhcnRtZW50Ijoi0J_QsNGA0L3QsNGBIiwiaWF0IjoxNzM0ODg3OTgwLCJleHAiOjE3MzU3NTE5ODB9.joYC1RIWYf6QjvFO1oqP7N6Igk60GYRmsxYFQo3R4zc
+@ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTU3OW1iaXgwMDAwczdiNmk1ZGdxbGxnIiwicm9sZSI6IlVzZXIiLCJkZXBhcnRtZW50IjoiUGFybmFzIiwiaWF0IjoxNzM1MzM0OTQyLCJleHAiOjE3MzYxOTg5NDJ9.5J9SPkT8nPBJZmXdFDf2hEcj6rw7uux7pUdcNQfzvck
 # @name newIdea
 POST http://{{Host}}:{{Port}}/api/idea/create HTTP/1.1
 Content-Type: application/json
 Authorization: {{ApiKey}}
 
 {
-    "title": "3",
-    "description":"Парнас",
-    "userId": "",
-    "department": "Парнас",
-    "subDepartment": "Склад",
-    "priority": "Low"
+  "title": "New Idea",
+  "description": "So far, Im just hearing a factual depiction of whats happening here.",
+  "department": "Parnas",
+  "subDepartment": "SalesFloor",
+  "priority": "Medium"
 }
 ###
 
 
-GET http://{{Host}}:{{Port}}/api/idea?limit=100&sortDirection=desc HTTP/1.1
+GET http://{{Host}}:{{Port}}/api/idea?limit=100&department=Parnas HTTP/1.1
 Content-Type: application/json
 Authorization: {{ApiKey}}
 ###

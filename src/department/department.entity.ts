@@ -1,12 +1,12 @@
 import { Entity } from '@core';
-import { Department } from '@shared-types';
+import { Department, Location } from '@shared-types';
 import { genSalt, hash, compare } from 'bcrypt';
 
 const SALT_ROUNDS = 10;
 
 export class DepartmentEntity implements Entity<DepartmentEntity>, Department {
   public id?: string;
-  public title: string;
+  public title: Location;
   public qrCodeHash: string;
   public createdAt?: Date;
   public updatedAt?: Date;

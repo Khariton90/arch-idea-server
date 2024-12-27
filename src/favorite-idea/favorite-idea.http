@@ -3,8 +3,7 @@
 @Host= localhost
 @Port= 3000
 
-@ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTR6dmlkOHowMDAxczdmaGJ3aDIzY3I5Iiwicm9sZSI6InVzZXIiLCJkZXBhcnRtZW50Ijoi0J_QsNGA0L3QsNGBIiwiaWF0IjoxNzM0ODg3OTgwLCJleHAiOjE3MzU3NTE5ODB9.joYC1RIWYf6QjvFO1oqP7N6Igk60GYRmsxYFQo3R4zc
-
+@ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTU2djk1OXAwMDAxczd0NTdicnNnYzZtIiwicm9sZSI6IlVzZXIiLCJkZXBhcnRtZW50IjoiUGFybmFzIiwiaWF0IjoxNzM1MzEwODEzLCJleHAiOjE3MzYxNzQ4MTN9.0gZ-59aWjsdRlXpA0LEcoY9mTz2bBGAMQv145GcyJL8
 
 GET http://{{Host}}:{{Port}}/api/idea?limit=100&page=1 HTTP/1.1
 Content-Type: application/json

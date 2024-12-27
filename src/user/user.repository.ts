@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { CRUDRepository } from '@core';
 import { UserEntity } from './user.entity';
-import { Role, User } from '@shared-types';
+import { User } from '@shared-types';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 

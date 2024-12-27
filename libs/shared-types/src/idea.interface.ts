@@ -1,14 +1,16 @@
 import { IdeaStatus } from './idea-status.type';
+import { Location } from './location.type';
 import { Priority } from './priority.type';
+import { SubDepartment } from './sub-department.type';
 
 export interface Idea {
-  id?: string;
   title: string;
   description: string;
   userId: string;
-  department: string;
-  subDepartment: string;
+  department: Location;
+  subDepartment: SubDepartment;
   priority: Priority;
+  id?: string;
   status?: IdeaStatus;
   createdAt?: Date;
   updatedAt?: Date;

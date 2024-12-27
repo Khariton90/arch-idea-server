@@ -3,7 +3,7 @@
 @Host= localhost
 @Port= 3000
 
-@ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTR3c3U4NzgwMDAxczdicnZsbG9rdXZ2Iiwicm9sZSI6InVzZXIiLCJkZXBhcnRtZW50Ijoi0J_QsNGA0L3QsNGBIiwiaWF0IjoxNzM0NzAyMDk2LCJleHAiOjE3MzU1NjYwOTZ9.GaG-L_NhZKfaFeJTG0Q-o_Hj-fvNporDt9dC6FJIMMM
+@ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTU3OW1iaXgwMDAwczdiNmk1ZGdxbGxnIiwicm9sZSI6IlVzZXIiLCJkZXBhcnRtZW50IjoiUGFybmFzIiwiaWF0IjoxNzM1MzM0OTQyLCJleHAiOjE3MzYxOTg5NDJ9.5J9SPkT8nPBJZmXdFDf2hEcj6rw7uux7pUdcNQfzvck
 
 GET   http://{{Host}}:{{Port}}/api/user/account HTTP/1.1
 Content-Type: application/json

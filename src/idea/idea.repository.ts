@@ -10,46 +10,48 @@ export class IdeaRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   public async findMany(
-    { limit, sortDirection, page }: IdeaQuery,
+    { limit, sortDirection, page, department }: IdeaQuery,
     userId: string,
   ): Promise<Idea[] | []> {
+    const where = department ? { department } : {};
+
     const ideas = await this.prisma.idea.findMany({
+      where,
       take: limit,
       orderBy: [{ createdAt: sortDirection }],
       skip: page > 0 ? limit * (page - 1) : undefined,
       include: {
+        user: true,
         favoriteIdea: {
           where: {
             userId,
           },
         },
-        likes: {
-          where: {
-            userId,
-          },
-        },
-        dislikes: {
-          where: {
-            userId,
-          },
-        },
+        likes: true,
+        dislikes: true,
       },
     });
 
-    return ideas.map((idea) => ({
-      isFavorite: idea.favoriteIdea.length > 0,
-      likesCount: idea.likes.length,
-      dislikesCount: idea.dislikes.length,
-      reactionType: getReactionType(idea.likes.length, idea.dislikes.length),
-      ...idea,
-    }));
+    return ideas.map((idea) => {
+      const isLiked = idea.likes.some((like) => like.userId === userId);
+      const isDisliked = idea.dislikes.some(
+        (dislike) => dislike.userId === userId,
+      );
+      return {
+        isFavorite: idea.favoriteIdea.length > 0,
+        likesCount: idea.likes.length,
+        dislikesCount: idea.dislikes.length,
+        reactionType: getReactionType(isLiked, isDisliked),
+        ...idea,
+      };
+    });
   }
 
   public async findUserIdeas(
     { limit, sortDirection, page }: IdeaQuery,
     userId: string,
   ) {
-    const userIdeas = await this.prisma.idea.findMany({
+    const ideas = await this.prisma.idea.findMany({
       where: {
         userId,
       },
@@ -57,19 +59,26 @@ export class IdeaRepository {
       orderBy: [{ createdAt: sortDirection }],
       skip: page > 0 ? limit * (page - 1) : undefined,
       include: {
+        user: true,
         favoriteIdea: true,
         likes: true,
         dislikes: true,
       },
     });
 
-    return userIdeas.map((idea) => ({
-      isFavorite: idea.favoriteIdea.length > 0,
-      likesCount: idea.likes.length,
-      dislikesCount: idea.dislikes.length,
-      reactionType: getReactionType(idea.likes.length, idea.dislikes.length),
-      ...idea,
-    }));
+    return ideas.map((idea) => {
+      const isLiked = idea.likes.some((like) => like.userId === userId);
+      const isDisliked = idea.dislikes.some(
+        (dislike) => dislike.userId === userId,
+      );
+      return {
+        isFavorite: idea.favoriteIdea.length > 0,
+        likesCount: idea.likes.length,
+        dislikesCount: idea.dislikes.length,
+        reactionType: getReactionType(isLiked, isDisliked),
+        ...idea,
+      };
+    });
   }
 
   public async findFavoriteIdeas(
@@ -88,48 +97,53 @@ export class IdeaRepository {
       orderBy: [{ createdAt: sortDirection }],
       skip: page > 0 ? limit * (page - 1) : undefined,
       include: {
+        user: true,
         favoriteIdea: true,
         likes: true,
         dislikes: true,
       },
     });
 
-    return ideas.map((idea) => ({
-      isFavorite: idea.favoriteIdea.length > 0,
-      likesCount: idea.likes.length,
-      dislikesCount: idea.dislikes.length,
-      reactionType: getReactionType(idea.likes.length, idea.dislikes.length),
-      ...idea,
-    }));
+    return ideas.map((idea) => {
+      const isLiked = idea.likes.some((like) => like.userId === userId);
+      const isDisliked = idea.dislikes.some(
+        (dislike) => dislike.userId === userId,
+      );
+      return {
+        isFavorite: idea.favoriteIdea.length > 0,
+        likesCount: idea.likes.length,
+        dislikesCount: idea.dislikes.length,
+        reactionType: getReactionType(isLiked, isDisliked),
+        ...idea,
+      };
+    });
   }
 
   public async findById(ideaId: string, userId: string) {
     const idea = await this.prisma.idea.findFirst({
       where: { id: ideaId },
       include: {
+        user: true,
         favoriteIdea: {
           where: {
             userId,
           },
         },
-        likes: {
-          where: {
-            userId,
-          },
-        },
-        dislikes: {
-          where: {
-            userId,
-          },
-        },
+        likes: true,
+        dislikes: true,
       },
     });
+
+    const isLiked = idea.likes.some((like) => like.userId === userId);
+    const isDisliked = idea.dislikes.some(
+      (dislike) => dislike.userId === userId,
+    );
 
     return {
       isFavorite: idea.favoriteIdea.length > 0,
       likesCount: idea.likes.length,
       dislikesCount: idea.dislikes.length,
-      reactionType: getReactionType(idea.likes.length, idea.dislikes.length),
+      reactionType: getReactionType(isLiked, isDisliked),
       ...idea,
     };
   }

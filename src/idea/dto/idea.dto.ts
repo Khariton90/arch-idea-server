@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Priority } from '@shared-types';
+import { Location, Priority, SubDepartment } from '@shared-types';
 import { Expose } from 'class-transformer';
 import { IsIn, IsString } from 'class-validator';
 
@@ -23,19 +23,32 @@ export class IdeaDto {
 
   @ApiProperty({
     description: 'Idea Department',
-    example: 'Офис',
+    example: 'Parnas',
   })
   @Expose()
   @IsString()
-  department: string;
+  @IsIn([
+    'Parnas',
+    'Industrialny',
+    'KadSever',
+    'Planernaya',
+    'Murmanskoe',
+    'Sofiyskaya',
+    'Tallinskaya',
+    'Slavyanka',
+    'Other',
+    ,
+  ])
+  department: Location;
 
   @ApiProperty({
     description: 'Idea SubDepartment',
-    example: 'Склад',
+    example: 'SalesFloor',
   })
   @Expose()
   @IsString()
-  subDepartment: string;
+  @IsIn(['SalesFloor', 'Warehouse', 'CommercialDepartment', 'Other'])
+  subDepartment: SubDepartment;
 
   @ApiProperty({
     description: 'Idea Priority',

@@ -1,5 +1,6 @@
+import { Location } from '@shared-types';
 import { Transform } from 'class-transformer';
-import { IsNumber, IsOptional, IsIn } from 'class-validator';
+import { IsNumber, IsOptional, IsIn, IsString } from 'class-validator';
 
 const DEFAULT_IDEA_LIMIT = 10;
 const DEFAULT_SORT_DIRECTION = 'desc';
@@ -17,4 +18,8 @@ export class IdeaQuery {
   @Transform(({ value }) => Number(value))
   @IsOptional()
   public page: number;
+
+  @IsOptional()
+  @IsString()
+  public department: Location;
 }

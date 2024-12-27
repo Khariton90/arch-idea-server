@@ -1,8 +1,15 @@
 import { IdeaStatus } from '@shared-types/idea-status.type';
 import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
-import { IsBoolean, IsIn, IsNumber, IsString } from 'class-validator';
-import { ReactionType } from '@shared-types';
+import { Exclude, Expose, Type } from 'class-transformer';
+import {
+  IsBoolean,
+  IsIn,
+  IsNumber,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+import { ReactionType, SubDepartment } from '@shared-types';
+import { UserResponseDto } from 'src/user/rdo/user.rdo';
 
 export class IdeaRdo {
   @ApiProperty({
@@ -30,29 +37,43 @@ export class IdeaRdo {
   @IsString()
   description: string;
 
-  @ApiProperty({
-    description: 'Unique userId',
-    example: 'eyJzdWIiOiIxMjM',
-  })
-  @Expose()
-  @IsString()
+  @Exclude()
   userId: string;
+
+  @ApiProperty({ type: UserResponseDto, description: 'User data object' })
+  @Expose()
+  @Type(() => UserResponseDto)
+  @ValidateNested({ each: true })
+  @Expose()
+  user: UserResponseDto;
 
   @ApiProperty({
     description: 'Idea Department',
-    example: 'Офис',
+    example: 'Parnas',
   })
   @Expose()
-  @IsString()
-  department: string;
+  @IsIn([
+    'Parnas',
+    'Industrialny',
+    'KadSever',
+    'Planernaya',
+    'Murmanskoe',
+    'Sofiyskaya',
+    'Tallinskaya',
+    'Slavyanka',
+    'Other',
+    ,
+  ])
+  department: Location;
 
   @ApiProperty({
     description: 'Idea SubDepartment',
-    example: 'Склад',
+    example: 'SalesFloor',
   })
   @Expose()
   @IsString()
-  subDepartment: string;
+  @IsIn(['SalesFloor', 'Warehouse', 'CommercialDepartment', 'Other'])
+  subDepartment: SubDepartment;
 
   @ApiProperty({
     description: 'Idea Status',

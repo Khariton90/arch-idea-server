@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { CRUDRepository } from '@core';
 import { DepartmentEntity } from './department.entity';
-import { Department } from '@shared-types';
+import { Department, Location } from '@shared-types';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -21,7 +21,7 @@ export class DepartmentRepository
     });
   }
 
-  public async findOne(title: string): Promise<Department | null> {
+  public async findOne(title: Location): Promise<Department | null> {
     return this.prisma.department.findFirst({
       where: { title },
     });

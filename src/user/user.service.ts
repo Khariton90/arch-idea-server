@@ -8,7 +8,6 @@ import { UserRepository } from './user.repository';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserEntity } from './user.entity';
 import { DepartmentRepository } from '../department/department.repository';
-import { Status } from '@shared-types';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 const UNAUTHORIZED_MESSAGE = 'Access is denied';
@@ -28,8 +27,6 @@ export class UserService {
     }
 
     const entity = new UserEntity({
-      role: 'user',
-      status: Status.Spec,
       department: department.title,
     });
 

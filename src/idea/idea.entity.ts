@@ -1,13 +1,19 @@
 import { Entity } from '@core';
-import { Idea, IdeaStatus, Priority } from '@shared-types';
+import {
+  Idea,
+  IdeaStatus,
+  Location,
+  Priority,
+  SubDepartment,
+} from '@shared-types';
 
 export class IdeaEntity implements Entity<IdeaEntity>, Idea {
   id?: string;
   title: string;
   description: string;
   userId: string;
-  department: string;
-  subDepartment: string;
+  department: Location;
+  subDepartment: SubDepartment;
   priority: Priority;
   status: IdeaStatus;
   dislikesCount?: number;

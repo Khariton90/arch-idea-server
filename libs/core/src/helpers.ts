@@ -11,7 +11,10 @@ export function replaceNullWithEmpty(value: string | null): string {
   return value ?? '';
 }
 
-export function getReactionType(likes: number, dislikes: number): ReactionType {
+export function getReactionType(
+  likes: boolean,
+  dislikes: boolean,
+): ReactionType {
   if (likes) {
     return 'Like' as ReactionType;
   }

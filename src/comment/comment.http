@@ -3,9 +3,9 @@
 @Host= localhost
 @Port= 3000
 
-@ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTR4eDVsZmswMDAxczdmZXVzM3UxcG4xIiwicm9sZSI6InVzZXIiLCJkZXBhcnRtZW50Ijoi0J_QsNGA0L3QsNGBIiwiaWF0IjoxNzM0NzY5ODExLCJleHAiOjE3MzU2MzM4MTF9.BZgwLSJtKIFWGle2y1TqTP2pTXOJEZyj9iRjA0PLvcM
+@ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTU2djk1OXAwMDAxczd0NTdicnNnYzZtIiwicm9sZSI6IlVzZXIiLCJkZXBhcnRtZW50IjoiUGFybmFzIiwiaWF0IjoxNzM1MzEwODEzLCJleHAiOjE3MzYxNzQ4MTN9.0gZ-59aWjsdRlXpA0LEcoY9mTz2bBGAMQv145GcyJL8
 # @name newIdea
-POST http://{{Host}}:{{Port}}/api/comment/cm4xys2ot0001s73igfzmwv9k HTTP/1.1
+POST http://{{Host}}:{{Port}}/api/comment/cm570mc4r000bs7t5try3wol3 HTTP/1.1
 Content-Type: application/json
 Authorization: {{ApiKey}}
 
