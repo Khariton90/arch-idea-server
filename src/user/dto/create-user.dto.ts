@@ -10,4 +10,12 @@ export class CreateUserDto {
   })
   @IsString()
   sub: string;
+
+  @ApiProperty({
+    description: 'Model device name',
+    required: true,
+    example: 'Iphone11',
+  })
+  @IsString()
+  modelName: string;
 }

@@ -31,7 +31,7 @@ export class DislikeRepository {
     });
   }
 
-  public async destroy({ userId, ideaId }: DislikeDto): Promise<null> {
+  public async destroy({ userId, ideaId }: DislikeDto) {
     await this.prisma.dislike.delete({
       where: {
         userId_ideaId: {
@@ -41,6 +41,6 @@ export class DislikeRepository {
       },
     });
 
-    return null;
+    return { ideaId, userId };
   }
 }

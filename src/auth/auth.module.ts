@@ -7,10 +7,14 @@ import { getJwtConfig } from '../config/jwt.config';
 import { JwtStrategy } from '../strategies/jwt.strategy';
 import { UserModule } from '../user/user.module';
 import { UserService } from 'src/user/user.service';
+import { RefreshTokenService } from 'src/refresh-token/refresh-token.service';
+import { RefreshTokenModule } from 'src/refresh-token/refresh-token.module';
+import { JwtRefreshStrategy } from 'src/strategies/jwt-refresh.strategy';
 
 @Module({
   imports: [
     UserModule,
+    RefreshTokenModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -18,6 +22,12 @@ import { UserService } from 'src/user/user.service';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UserService, JwtStrategy],
+  providers: [
+    AuthService,
+    UserService,
+    JwtStrategy,
+    JwtRefreshStrategy,
+    RefreshTokenService,
+  ],
 })
 export class AuthModule {}

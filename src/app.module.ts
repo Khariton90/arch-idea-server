@@ -13,6 +13,7 @@ import { FavoriteIdeaModule } from './favorite-idea/favorite-idea.module';
 import { CommentModule } from './comment/comment.module';
 import { LikeModule } from './like/like.module';
 import { DislikeModule } from './dislike/dislike.module';
+import { RefreshTokenModule } from './refresh-token/refresh-token.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { DislikeModule } from './dislike/dislike.module';
     CommentModule,
     LikeModule,
     DislikeModule,
+    RefreshTokenModule,
   ],
   providers: [AppService],
 })

@@ -9,6 +9,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UserEntity } from './user.entity';
 import { DepartmentRepository } from '../department/department.repository';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserDeletedException } from './exceptions/user-deleted.exception';
 
 const UNAUTHORIZED_MESSAGE = 'Access is denied';
 
@@ -28,6 +29,7 @@ export class UserService {
 
     const entity = new UserEntity({
       department: department.title,
+      role: 'User',
     });
 
     return await this.userRepository.create(entity);
@@ -40,18 +42,34 @@ export class UserService {
       throw new UnauthorizedException(UNAUTHORIZED_MESSAGE);
     }
 
+    if (user.isDeleted) {
+      throw new UserDeletedException();
+    }
+
     return user;
   }
 
   public async findMany() {
-    return this.userRepository.findMany();
+    try {
+      return this.userRepository.findMany();
+    } catch {
+      throw new BadRequestException();
+    }
   }
 
-  public async updateUser(id: string, { firstName, lastName }: UpdateUserDto) {
+  public async updateUser(
+    id: string,
+    { firstName, lastName, password, email }: UpdateUserDto,
+  ) {
     try {
       const existUser = await this.userRepository.findById(id);
       if (existUser) {
-        const entity = new UserEntity({ ...existUser, firstName, lastName });
+        const entity = await new UserEntity({
+          ...existUser,
+          firstName,
+          lastName,
+          email,
+        }).setPassword(password);
         return await this.userRepository.update(id, entity);
       }
 

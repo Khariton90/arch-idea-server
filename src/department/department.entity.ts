@@ -31,5 +31,7 @@ export class DepartmentEntity implements Entity<DepartmentEntity>, Department {
   public fillEntity(entity: Department): void {
     this.title = entity.title;
     this.qrCodeHash = entity.qrCodeHash;
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
   }
 }

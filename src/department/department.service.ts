@@ -1,9 +1,9 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { DepartmentRepository } from './department.repository';
 import { DepartmentDto } from './dto/department.dto';
 import { DepartmentEntity } from './department.entity';
 
-const CONFLICT_DEPARTMENT_MESSAGE = 'Such a department already exists';
+// const CONFLICT_DEPARTMENT_MESSAGE = 'Such a department already exists';
 
 @Injectable()
 export class DepartmentService {
@@ -14,11 +14,6 @@ export class DepartmentService {
       title: dto.title,
       qrCodeHash: dto.title,
     });
-
-    //TODO
-    // if (await this.departmentRepository.findOne(entity.title)) {
-    //   throw new ConflictException(CONFLICT_DEPARTMENT_MESSAGE);
-    // }
 
     await entity.setHash(dto.title);
     return await this.departmentRepository.create(entity);

@@ -12,11 +12,11 @@ export class UserRepository
   constructor(private readonly prisma: PrismaService) {}
 
   public async findMany(): Promise<User[]> {
-    return this.prisma.user.findMany();
+    return await this.prisma.user.findMany();
   }
 
   public async findById(id: string): Promise<User> {
-    return this.prisma.user.findFirst({
+    return await this.prisma.user.findFirst({
       where: { id },
     });
   }

@@ -22,11 +22,15 @@ export class LikeService {
       const existLike = await this.likeRepository.findById(dto);
 
       if (existLike) {
-        return await this.likeRepository.destroy(dto);
+        const deletedLike = await this.likeRepository.destroy(dto);
+
+        return { ...deletedLike, reactionType: 'None' };
       }
 
       const entity = new LikeEntity(dto);
-      return await this.likeRepository.create(entity);
+      const createdLike = await this.likeRepository.create(entity);
+
+      return { ...createdLike, reactionType: 'Like' };
     } catch {
       throw new BadRequestException();
     }

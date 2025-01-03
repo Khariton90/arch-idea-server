@@ -1,1 +1,7 @@
-export type UserStatus = 'Spec' | 'Master' | 'Pro' | 'Expert' | 'SuperExpert';
+export type UserStatus =
+  | 'NotVerified'
+  | 'Spec'
+  | 'Master'
+  | 'Pro'
+  | 'Expert'
+  | 'SuperExpert';

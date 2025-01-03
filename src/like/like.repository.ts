@@ -10,11 +10,13 @@ export class LikeRepository {
 
   public async create(item: LikeEntity): Promise<LikeDislike> {
     const data = item.toObject();
-    return await this.prisma.like.create({
+    const like = await this.prisma.like.create({
       data: {
         ...data,
       },
     });
+
+    return like;
   }
 
   public async findById({
@@ -31,16 +33,20 @@ export class LikeRepository {
     });
   }
 
-  public async destroy({ userId, ideaId }: LikeDto): Promise<null> {
-    await this.prisma.like.delete({
-      where: {
-        userId_ideaId: {
-          userId,
-          ideaId,
+  public async destroy({ userId, ideaId }: LikeDto): Promise<LikeDislike> {
+    try {
+      await this.prisma.like.delete({
+        where: {
+          userId_ideaId: {
+            userId,
+            ideaId,
+          },
         },
-      },
-    });
+      });
 
-    return null;
+      return { userId, ideaId };
+    } catch {
+      return { userId, ideaId };
+    }
   }
 }

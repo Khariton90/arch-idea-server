@@ -1,12 +1,13 @@
 import { ReactionType } from '@shared-types';
-import { Expose, Transform } from 'class-transformer';
+import { Expose } from 'class-transformer';
 
 export class LikeRdo {
   @Expose()
-  @Transform(({ obj }) => {
-    if (obj) {
-      return 'Like' as ReactionType;
-    }
-  })
+  ideaId: string;
+
+  @Expose()
+  userId: string;
+
+  @Expose()
   public reactionType: ReactionType;
 }

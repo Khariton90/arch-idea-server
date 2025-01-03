@@ -1,6 +1,7 @@
 //Модуль Регистрации
 
-@Host= localhost
+
+@Host=localhost
 @Port= 3000
 
 # @name department
@@ -12,17 +13,31 @@ Content-Type: application/json
 }
 ###
 
-@ApiKey = {{department.response.body.qrCodeHash}}
+///$2b$10$xT.pqdkKWFsWxeI0NbsqFeXS0yNI/oWp9mkh1S8WnL.64jGM5dqf.
+
+GET  http://{{Host}}:{{Port}}/api/department HTTP/1.1
+Content-Type: application/json
+
+###
+
+# @ApiKey = {{department.response.body.qrCodeHash}}
+@ApiKey = $2b$10$KHEEB6cvDq1ALQWR59ljrefDttkGk/qAmo3KPdm/5ResLUEFXenjG
+
+
 
 # @name register 
 POST http://{{Host}}:{{Port}}/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-    "sub": "{{ApiKey}}"
+    "sub": "{{ApiKey}}",
+    "modelName": "Ipnohe"
 }
 
 ###
 
-
-///$2b$10$pIFbCkTTGWBpT1noFj9H2uniFJ9lV5EPDxqHVh/vlMtl3YxEM0NBK
+@ApiKey2 = {{register.response.body.refresh_token}}
+POST http://{{Host}}:{{Port}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{ApiKey2}}
+###

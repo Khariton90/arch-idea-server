@@ -31,14 +31,15 @@ enum Location {
 }
 
 model Department {
-    id             String          @id @default(cuid())
+    id             String        @id @default(cuid())
     title          Location
-    qrCodeHash     String
+    qrCodeHash     String        @unique
     createdAt      DateTime      @default(now())
     updatedAt      DateTime      @updatedAt 
 }
 
 enum Status {
+    NotVerified
     Spec
     Master
     Pro
@@ -52,20 +53,35 @@ enum Role {
     User
 }
 
+model RefreshToken {
+    id                String         @id @default(cuid())
+    modelName         String
+    tokenId           String
+    sub               String
+    role              Role
+    department        Location
+    createdAt         DateTime?      @default(now())
+}
+
 model User {
-    id              String    @id @default(cuid())
-    firstName       String?
-    lastName        String?
-    status          Status?  @default(Spec)
-    role            Role?    @default(User)
-    department      Location
-    ideas           Idea[]    
-    favoriteIdeas   FavoriteIdea[] @relation("Favorites")
-    favoriteIdeasCount Int @default(0)
-    myIdeasCount       Int @default(0)
-    comment Comment[]
-    likes Like[]
-    dislikes Dislike[]
+    id                 String         @id @default(cuid())
+    firstName          String
+    lastName           String
+    status             Status         @default(NotVerified)
+    role               Role           @default(User)
+    department         Location
+    ideas              Idea[]    
+    favoriteIdeas      FavoriteIdea[] @relation("Favorites")
+    favoriteIdeasCount Int            @default(0)
+    myIdeasCount       Int            @default(0)
+    comment            Comment[]
+    likes              Like[]
+    dislikes           Dislike[]
+    isDeleted          Boolean?
+    email              String?
+    passwordHash       String?
+    createdAt          DateTime?      @default(now())
+    updatedAt          DateTime?      @updatedAt 
 }
 
 model FavoriteIdea {

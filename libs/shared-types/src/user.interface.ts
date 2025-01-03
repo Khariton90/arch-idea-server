@@ -10,5 +10,8 @@ export interface User {
   favoriteIdeasCount?: number;
   myIdeasCount?: number;
   status?: UserStatus;
-  role?: UserRole;
+  role: UserRole;
+  isDeleted?: boolean;
+  email?: string;
+  passwordHash?: string;
 }

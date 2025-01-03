@@ -16,6 +16,14 @@ import {
 export class IdeaService {
   constructor(private readonly ideaRepository: IdeaRepository) {}
 
+  public async findCount(query: IdeaQuery) {
+    try {
+      return await this.ideaRepository.findCount(query);
+    } catch {
+      return 0;
+    }
+  }
+
   public async create(dto: IdeaDto, userId: string) {
     const entity = new IdeaEntity({ ...dto, userId });
     try {

@@ -19,7 +19,7 @@ export class IdeaQuery {
   @IsOptional()
   public page: number;
 
-  @IsOptional()
   @IsString()
-  public department: Location;
+  @IsOptional()
+  public department?: Location = undefined;
 }

@@ -3,14 +3,14 @@
 @Host= localhost
 @Port= 3000
 
-@ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTU3OW1iaXgwMDAwczdiNmk1ZGdxbGxnIiwicm9sZSI6IlVzZXIiLCJkZXBhcnRtZW50IjoiUGFybmFzIiwiaWF0IjoxNzM1MzM0OTQyLCJleHAiOjE3MzYxOTg5NDJ9.5J9SPkT8nPBJZmXdFDf2hEcj6rw7uux7pUdcNQfzvck
+@ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTVmMXBycXQwMDAxczdkZzBzdXljZ3lnIiwicm9sZSI6IlVzZXIiLCJkZXBhcnRtZW50IjoiUGFybmFzIiwiaWF0IjoxNzM1ODA1Mzk2LCJleHAiOjE3MzU4NDEzOTZ9.UCvxpeYsNlNrE8yWWvmSTMpeHbE3LUJ2VfCCBdbpGxw
 # @name newIdea
 POST http://{{Host}}:{{Port}}/api/idea/create HTTP/1.1
 Content-Type: application/json
 Authorization: {{ApiKey}}
 
 {
-  "title": "New Idea",
+  "title": "Soвыфвфывфыв far, Im just hearing a factual depiction of whats happening here.",
   "description": "So far, Im just hearing a factual depiction of whats happening here.",
   "department": "Parnas",
   "subDepartment": "SalesFloor",
@@ -19,7 +19,7 @@ Authorization: {{ApiKey}}
 ###
 
 
-GET http://{{Host}}:{{Port}}/api/idea?limit=100&department=Parnas HTTP/1.1
+GET http://{{Host}}:{{Port}}/api/idea?limit=100&department=KadSever HTTP/1.1
 Content-Type: application/json
 Authorization: {{ApiKey}}
 ###
@@ -47,4 +47,9 @@ Authorization: {{ApiKey}}
 {
     "id": "cm4ztvonw0003s796wbzaj4xd"
 }
+###
+GET   http://{{Host}}:{{Port}}/api/idea/totalCount HTTP/1.1
+Content-Type: application/json
+Authorization: {{ApiKey}}
+
 ###

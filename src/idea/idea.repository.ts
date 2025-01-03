@@ -9,13 +9,18 @@ import { getReactionType } from '@core';
 export class IdeaRepository {
   constructor(private readonly prisma: PrismaService) {}
 
+  public async findCount(query: IdeaQuery) {
+    const where = query.department ? { department: query.department } : {};
+    return await this.prisma.idea.count({ where });
+  }
+
   public async findMany(
     { limit, sortDirection, page, department }: IdeaQuery,
     userId: string,
-  ): Promise<Idea[] | []> {
+  ) {
     const where = department ? { department } : {};
 
-    const ideas = await this.prisma.idea.findMany({
+    const items = await this.prisma.idea.findMany({
       where,
       take: limit,
       orderBy: [{ createdAt: sortDirection }],
@@ -32,7 +37,7 @@ export class IdeaRepository {
       },
     });
 
-    return ideas.map((idea) => {
+    return items.map((idea) => {
       const isLiked = idea.likes.some((like) => like.userId === userId);
       const isDisliked = idea.dislikes.some(
         (dislike) => dislike.userId === userId,

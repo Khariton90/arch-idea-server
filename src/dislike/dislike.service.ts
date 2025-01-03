@@ -22,11 +22,14 @@ export class DislikeService {
       const existDisLike = await this.dislikeRepository.findById(dto);
 
       if (existDisLike) {
-        return await this.remove(dto);
+        const deletedDislike = await this.remove(dto);
+        return { ...deletedDislike, reactionType: 'None' };
       }
 
       const entity = new LikeEntity(dto);
-      return await this.dislikeRepository.create(entity);
+      const createdDislike = await this.dislikeRepository.create(entity);
+
+      return { ...createdDislike, reactionType: 'Dislike' };
     } catch {
       throw new BadRequestException();
     }

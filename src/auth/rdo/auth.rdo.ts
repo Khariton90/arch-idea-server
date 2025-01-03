@@ -4,6 +4,15 @@ import { IsString } from 'class-validator';
 
 export class AuthRdo {
   @ApiProperty({
+    description: 'Uniq User ID',
+    required: true,
+    example: 'F0IjoxNzM0MzY2Nj',
+  })
+  @Expose()
+  @IsString()
+  userId: string;
+
+  @ApiProperty({
     description: 'User accessToken',
     required: true,
     example: 'F0IjoxNzM0MzY2Njc0LCJleHAiOjE3MzQ0MDI2NzR9.Q5E20rEpyPH5jXlfdWi',

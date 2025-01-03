@@ -23,6 +23,11 @@ import { IdeaQuery } from './query/idea.query';
 export class IdeaController {
   constructor(private readonly ideaService: IdeaService) {}
 
+  @Get('totalCount')
+  public async findCount(@Query() query: IdeaQuery) {
+    return await this.ideaService.findCount(query);
+  }
+
   @UseGuards(JwtAuthGuard)
   @Get('/')
   @ApiResponse({
@@ -31,7 +36,8 @@ export class IdeaController {
     description: 'Array with Ideas was received',
   })
   async findMany(@Query() query: IdeaQuery, @Req() { user }: UserRequest) {
-    return fillObject(IdeaRdo, this.ideaService.findMany(query, user.sub));
+    const ideas = await this.ideaService.findMany(query, user.sub);
+    return fillObject(IdeaRdo, ideas);
   }
 
   @UseGuards(JwtAuthGuard)

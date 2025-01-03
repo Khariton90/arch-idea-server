@@ -3,16 +3,14 @@
 @Host= localhost
 @Port= 3000
 
-@ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTU2djk1OXAwMDAxczd0NTdicnNnYzZtIiwicm9sZSI6IlVzZXIiLCJkZXBhcnRtZW50IjoiUGFybmFzIiwiaWF0IjoxNzM1MzEwODEzLCJleHAiOjE3MzYxNzQ4MTN9.0gZ-59aWjsdRlXpA0LEcoY9mTz2bBGAMQv145GcyJL8
-# @name newIdea
-POST http://{{Host}}:{{Port}}/api/like/cm4ztvonw0003s796wbzaj4xd HTTP/1.1
+@ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTVmMXBycXQwMDAxczdkZzBzdXljZ3lnIiwicm9sZSI6IlVzZXIiLCJkZXBhcnRtZW50IjoiUGFybmFzIiwiaWF0IjoxNzM1ODA1Mzk2LCJleHAiOjE3MzU4NDEzOTZ9.UCvxpeYsNlNrE8yWWvmSTMpeHbE3LUJ2VfCCBdbpGxw
 Content-Type: application/json
 Authorization: {{ApiKey}}
 
 ###
 
 
-POST  http://{{Host}}:{{Port}}/api/like/cm574d89z000fs7rsm70l7wgv HTTP/1.1
+POST  http://{{Host}}:{{Port}}/api/like/cm5e9hyrl0009s7hm3dcmy0kv HTTP/1.1
 Content-Type: application/json
 Authorization: {{ApiKey}}
 ###
