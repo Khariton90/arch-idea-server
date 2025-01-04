@@ -29,7 +29,7 @@ export class AuthService {
   public async loginUser(
     user: Pick<User, 'id' | 'role' | 'department'>,
     modelName: string,
-    refreshTokenId?: string,
+    _refreshTokenId?: string,
   ) {
     const payload: TokenPayload = {
       sub: user.id,
@@ -66,6 +66,7 @@ export class AuthService {
 
       if (existSession) {
         await this.refreshTokenService.deleteRefreshSession(userId);
+        await this.userService.deleteUser(userId);
       }
     } catch {
       throw new NotFoundException();

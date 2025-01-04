@@ -74,4 +74,18 @@ export class UserService {
       throw new BadRequestException();
     }
   }
+
+  public async deleteUser(id: string) {
+    try {
+      const existUser = await this.userRepository.findById(id);
+      const entity = new UserEntity({
+        ...existUser,
+        isDeleted: true,
+      });
+
+      return await this.userRepository.update(id, entity);
+    } catch {
+      throw new NotFoundException();
+    }
+  }
 }
