@@ -24,8 +24,8 @@ export class RefreshTokenService {
     return await this.refreshTokenRepository.create(refreshToken);
   }
 
-  public async existToken(tokenId: string) {
-    const refreshToken = await this.refreshTokenRepository.findById(tokenId);
+  public async existToken(userId: string) {
+    const refreshToken = await this.refreshTokenRepository.findById(userId);
     return refreshToken;
   }
 

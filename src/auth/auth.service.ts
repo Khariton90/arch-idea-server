@@ -59,4 +59,16 @@ export class AuthService {
       throw new NotFoundException();
     }
   }
+
+  public async signOut(userId: string) {
+    try {
+      const existSession = await this.refreshTokenService.existToken(userId);
+
+      if (existSession) {
+        await this.refreshTokenService.deleteRefreshSession(userId);
+      }
+    } catch {
+      throw new NotFoundException();
+    }
+  }
 }

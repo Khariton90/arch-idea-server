@@ -12,7 +12,7 @@ export class RefreshTokenRepository
 
   public async findById(id: string): Promise<RefreshTokenPayload | null> {
     return await this.prisma.refreshToken.findFirst({
-      where: { tokenId: id },
+      where: { sub: id },
     });
   }
 

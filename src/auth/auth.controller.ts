@@ -11,8 +11,13 @@ import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { fillObject } from '@core';
 import { AuthRdo } from './rdo/auth.rdo';
-import { RefreshTokenPayload, RequestWithTokenPayload } from '@shared-types';
+import {
+  RefreshTokenPayload,
+  RequestWithTokenPayload,
+  UserRequest,
+} from '@shared-types';
 import { JwtRefreshGuard } from 'src/guards/jwt-refresh.guard';
+import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -42,5 +47,15 @@ export class AuthController {
         tokenId,
       ),
     );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: 'The user has been logout session.',
+  })
+  @Post('signOut')
+  async signOut(@Req() { user }: UserRequest) {
+    return await this.authService.signOut(user.sub);
   }
 }

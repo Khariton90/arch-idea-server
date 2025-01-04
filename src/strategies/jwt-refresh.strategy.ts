@@ -24,9 +24,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
   }
 
   public async validate(_req: Request, payload: RefreshTokenPayload) {
-    const existToken = await this.refreshTokenService.existToken(
-      payload.tokenId,
-    );
+    const existToken = await this.refreshTokenService.existToken(payload.sub);
 
     if (!existToken) {
       throw new UnauthorizedException('Bad refresh token');
