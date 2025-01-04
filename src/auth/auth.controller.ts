@@ -30,7 +30,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtRefreshGuard)
-  @Post('login')
+  @Post('refresh')
   async login(@Req() { user }: RequestWithTokenPayload<RefreshTokenPayload>) {
     const { sub, role, department, modelName, tokenId } = user;
 

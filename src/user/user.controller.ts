@@ -59,6 +59,9 @@ export class UserController {
     description: 'A user profile has been updated',
   })
   async update(@Body() body: UpdateUserDto, @Req() { user }: UserRequest) {
+    console.log(user);
+    console.log('body:' + body);
+
     return fillObject(UserRdo, this.userService.updateUser(user.sub, body));
   }
 }

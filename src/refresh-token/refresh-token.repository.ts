@@ -37,6 +37,6 @@ export class RefreshTokenRepository
   }
 
   public async destroy(id: string): Promise<void> {
-    await this.prisma.refreshToken.deleteMany({ where: { tokenId: id } });
+    await this.prisma.refreshToken.deleteMany({ where: { sub: id } });
   }
 }

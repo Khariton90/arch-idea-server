@@ -3,8 +3,6 @@ import { DepartmentRepository } from './department.repository';
 import { DepartmentDto } from './dto/department.dto';
 import { DepartmentEntity } from './department.entity';
 
-// const CONFLICT_DEPARTMENT_MESSAGE = 'Such a department already exists';
-
 @Injectable()
 export class DepartmentService {
   constructor(private readonly departmentRepository: DepartmentRepository) {}

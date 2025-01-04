@@ -14,6 +14,7 @@ import { CommentModule } from './comment/comment.module';
 import { LikeModule } from './like/like.module';
 import { DislikeModule } from './dislike/dislike.module';
 import { RefreshTokenModule } from './refresh-token/refresh-token.module';
+import { AppController } from './app.contoller';
 
 @Module({
   imports: [
@@ -36,5 +37,6 @@ import { RefreshTokenModule } from './refresh-token/refresh-token.module';
     RefreshTokenModule,
   ],
   providers: [AppService],
+  controllers: [AppController],
 })
 export class AppModule {}

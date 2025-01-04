@@ -29,7 +29,7 @@ export class RefreshTokenService {
     return refreshToken;
   }
 
-  public async deleteRefreshSession(tokenId: string) {
-    await this.refreshTokenRepository.destroy(tokenId);
+  public async deleteRefreshSession(userId: string) {
+    await this.refreshTokenRepository.destroy(userId);
   }
 }

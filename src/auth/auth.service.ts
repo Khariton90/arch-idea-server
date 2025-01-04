@@ -1,7 +1,7 @@
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { RefreshTokenPayload, TokenPayload, User } from '@shared-types';
 import { jwtOptions } from 'src/config/jwt.config';
 import { ConfigType } from '@nestjs/config';
@@ -44,15 +44,19 @@ export class AuthService {
       createdAt: new Date(),
     };
 
-    await this.refreshTokenService.deleteRefreshSession(refreshTokenId);
-    await this.refreshTokenService.createRefreshSession(refreshTokenPayload);
+    try {
+      await this.refreshTokenService.deleteRefreshSession(user.id);
+      await this.refreshTokenService.createRefreshSession(refreshTokenPayload);
 
-    return {
-      userId: user.id,
-      access_token: await this.jwtService.signAsync(payload),
-      refresh_token: await this.jwtService.signAsync(refreshTokenPayload, {
-        secret: this.jwtConfig.refreshTokenSecret,
-      }),
-    };
+      return {
+        userId: user.id,
+        access_token: await this.jwtService.signAsync(payload),
+        refresh_token: await this.jwtService.signAsync(refreshTokenPayload, {
+          secret: this.jwtConfig.refreshTokenSecret,
+        }),
+      };
+    } catch {
+      throw new NotFoundException();
+    }
   }
 }
