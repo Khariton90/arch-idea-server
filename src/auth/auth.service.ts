@@ -66,7 +66,6 @@ export class AuthService {
 
       if (existSession) {
         await this.refreshTokenService.deleteRefreshSession(userId);
-        await this.userService.deleteUser(userId);
       }
     } catch {
       throw new NotFoundException();

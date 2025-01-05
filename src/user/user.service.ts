@@ -57,14 +57,14 @@ export class UserService {
     }
   }
 
-  public async updateUser(id: string, { firstName, lastName }: UpdateUserDto) {
+  public async updateUser(id: string, dto: UpdateUserDto) {
     try {
       const existUser = await this.userRepository.findById(id);
       if (existUser) {
         const entity = new UserEntity({
           ...existUser,
-          firstName,
-          lastName,
+          ...dto,
+          status: 'Spec',
         });
         return await this.userRepository.update(id, entity);
       }

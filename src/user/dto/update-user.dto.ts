@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
-import { IsOptional, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class UpdateUserDto {
   @ApiProperty({
@@ -9,7 +9,6 @@ export class UpdateUserDto {
     example: 'John',
   })
   @Expose()
-  @IsOptional()
   @IsString()
   firstName: string;
 
@@ -19,7 +18,6 @@ export class UpdateUserDto {
     example: 'Doe',
   })
   @Expose()
-  @IsOptional()
   @IsString()
   lastName: string;
 
@@ -29,7 +27,6 @@ export class UpdateUserDto {
     example: '1@gmail.com',
   })
   @Expose()
-  @IsOptional()
   @IsString()
   email: string;
 
@@ -39,7 +36,6 @@ export class UpdateUserDto {
     example: 'qwerty',
   })
   @Expose()
-  @IsOptional()
   @IsString()
   password: string;
 }
