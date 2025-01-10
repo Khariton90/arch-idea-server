@@ -4,6 +4,7 @@ import { UserStatus } from './user-status.type';
 
 export interface User {
   department: Location;
+  login?: string;
   firstName?: string;
   lastName?: string;
   id?: string;
@@ -12,6 +13,5 @@ export interface User {
   status?: UserStatus;
   role: UserRole;
   isDeleted?: boolean;
-  email?: string;
   passwordHash?: string;
 }

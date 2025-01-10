@@ -5,6 +5,7 @@ export const jwtOptions = registerAs('jwt', () => ({
   accessTokenSecret: process.env.JWT_AT_SECRET,
   accessTokenExpiresIn: process.env.JWT_AT_EXPIRES_IN,
   refreshTokenSecret: process.env.JWT_RT_SECRET,
+  refreshTokenExpiresIn: process.env.JWT_RT_EXPIRES_IN,
 }));
 
 export async function getJwtConfig(

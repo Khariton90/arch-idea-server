@@ -11,6 +11,7 @@ import {
   BAD_REQUEST_IDEA_MESSAGE,
   NOT_FOUND_IDEA_MESSAGE,
 } from './idea.constant';
+import { CreateIdeaSolutionDto } from './dto/create-idea-solution.dto';
 
 @Injectable()
 export class IdeaService {
@@ -25,7 +26,7 @@ export class IdeaService {
   }
 
   public async create(dto: IdeaDto, userId: string) {
-    const entity = new IdeaEntity({ ...dto, userId });
+    const entity = new IdeaEntity({ ...dto, userId, solution: '' });
     try {
       return this.ideaRepository.create(entity);
     } catch {
@@ -62,6 +63,30 @@ export class IdeaService {
       return await this.ideaRepository.findById(ideaId, userId);
     } catch {
       throw new NotFoundException(NOT_FOUND_IDEA_MESSAGE);
+    }
+  }
+
+  public async createSolution(
+    ideaId: string,
+    userId: string,
+    dto: CreateIdeaSolutionDto,
+  ) {
+    try {
+      const idea = await this.ideaRepository.findById(ideaId, userId);
+
+      if (!idea) {
+        throw new NotFoundException();
+      }
+
+      const entity = new IdeaEntity({
+        ...idea,
+        solution: dto.solution,
+        status: dto.status,
+      });
+
+      return await this.ideaRepository.update(ideaId, entity);
+    } catch {
+      throw new BadRequestException();
     }
   }
 }

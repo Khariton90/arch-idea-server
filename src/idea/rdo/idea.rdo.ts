@@ -149,4 +149,11 @@ export class IdeaRdo {
   })
   @Expose()
   updatedAt: Date;
+
+  @ApiProperty({
+    description: 'Final decision on the idea',
+    example: 'Idea has been Completed',
+  })
+  @Expose()
+  solution: string;
 }

@@ -10,11 +10,14 @@ import { UserService } from 'src/user/user.service';
 import { RefreshTokenService } from 'src/refresh-token/refresh-token.service';
 import { RefreshTokenModule } from 'src/refresh-token/refresh-token.module';
 import { JwtRefreshStrategy } from 'src/strategies/jwt-refresh.strategy';
+import { LocalStrategy } from 'src/strategies/local.strategy';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
     UserModule,
     RefreshTokenModule,
+    PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -27,6 +30,7 @@ import { JwtRefreshStrategy } from 'src/strategies/jwt-refresh.strategy';
     UserService,
     JwtStrategy,
     JwtRefreshStrategy,
+    LocalStrategy,
     RefreshTokenService,
   ],
 })

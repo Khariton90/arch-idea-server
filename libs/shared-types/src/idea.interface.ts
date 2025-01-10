@@ -10,6 +10,7 @@ export interface Idea {
   department: Location;
   subDepartment: SubDepartment;
   priority: Priority;
+  solution: string;
   id?: string;
   status?: IdeaStatus;
   createdAt?: Date;

@@ -22,13 +22,13 @@ export class UpdateUserDto {
   lastName: string;
 
   @ApiProperty({
-    description: 'User email',
+    description: 'User login',
     required: true,
-    example: '1@gmail.com',
+    example: 'par_user_2323',
   })
   @Expose()
   @IsString()
-  email: string;
+  login: string;
 
   @ApiProperty({
     description: 'User password',

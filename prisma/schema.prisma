@@ -46,7 +46,7 @@ enum Role {
 model RefreshToken {
     id                String         @id @default(cuid())
     modelName         String
-    tokenId           String
+    tokenId           String         @unique
     sub               String
     role              Role
     department        Location
@@ -68,7 +68,7 @@ model User {
     likes              Like[]
     dislikes           Dislike[]
     isDeleted          Boolean?
-    email              String?
+    login              String         @unique
     passwordHash       String?
     createdAt          DateTime?      @default(now())
     updatedAt          DateTime?      @updatedAt 
@@ -99,13 +99,14 @@ model Idea {
     department      Location
     subDepartment   SubDepartment
     priority        Priority       @default(Low)
-    status          IdeaStatus?    @default(New)
-    createdAt       DateTime?      @default(now())
-    updatedAt       DateTime?      @updatedAt 
     favoriteIdea    FavoriteIdea[] @relation("Favorites")
     comment Comment[]
     likes Like[]
     dislikes Dislike[]
+    status          IdeaStatus?    @default(New)
+    createdAt       DateTime?      @default(now())
+    updatedAt       DateTime?      @updatedAt 
+    solution        String
 }
 
 enum Priority {

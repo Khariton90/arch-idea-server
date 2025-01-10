@@ -59,3 +59,8 @@ export class IdeaDto {
   @IsIn(['Low', 'Medium', 'High'])
   priority: Priority;
 }
+
+export class CreateIdeaDto extends IdeaDto {
+  @Expose()
+  file: File | Blob;
+}

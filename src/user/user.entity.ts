@@ -1,6 +1,7 @@
 import { Entity } from '@core';
 import { Location, User, UserRole, UserStatus } from '@shared-types';
 import { compare, genSalt, hash } from 'bcrypt';
+import { v4 as uuidv4 } from 'uuid';
 
 const DEFAULT_USER_NAME = 'Анонимный';
 const DEFAULT_USER_LASTNAME = 'Пользователь';
@@ -17,7 +18,8 @@ export class UserEntity implements Entity<UserEntity>, User {
   myIdeasCount?: number;
   isDeleted?: boolean;
   passwordHash?: string;
-  email?: string;
+  login: string;
+  modelName?: string;
 
   constructor(user: User) {
     this.fillEntity(user);
@@ -33,11 +35,18 @@ export class UserEntity implements Entity<UserEntity>, User {
     return compare(password, this.passwordHash);
   }
 
+  public generateUniqueLogin(department: string): string {
+    const prefix = `${department.slice(0, 3)}_user`;
+    const randomPart = uuidv4().slice(-8);
+    return `${prefix}_${randomPart}`.toLowerCase();
+  }
+
   public toObject() {
     return { ...this };
   }
 
   public fillEntity(user: User) {
+    this.id = user.id;
     this.department = user.department;
     this.firstName = user.firstName ?? DEFAULT_USER_NAME;
     this.lastName = user.lastName ?? DEFAULT_USER_LASTNAME;
@@ -47,6 +56,6 @@ export class UserEntity implements Entity<UserEntity>, User {
     this.myIdeasCount = user.myIdeasCount ?? 0;
     this.isDeleted = user.isDeleted ?? false;
     this.passwordHash = user.passwordHash ?? '';
-    this.email = user.email ?? '';
+    this.login = user.login ?? this.generateUniqueLogin(user.department);
   }
 }

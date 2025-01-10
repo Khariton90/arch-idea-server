@@ -20,8 +20,7 @@ Content-Type: application/json
 
 ###
 
-# @ApiKey = {{department.response.body.qrCodeHash}}
-@ApiKey = $2b$10$KHEEB6cvDq1ALQWR59ljrefDttkGk/qAmo3KPdm/5ResLUEFXenjG
+@ApiKey = {{department.response.body.qrCodeHash}}
 
 
 
@@ -36,8 +35,28 @@ Content-Type: application/json
 
 ###
 
+# @name refresh 
 @ApiKey2 = {{register.response.body.refresh_token}}
 POST http://{{Host}}:{{Port}}/api/auth/refresh HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{ApiKey2}}
+###
+
+@ApiKey3 = {{refresh.response.body.access_token}}
+
+GET   http://{{Host}}:{{Port}}/api/user/account HTTP/1.1
+Content-Type: application/json
+Authorization: {{ApiKey3}}
+
+###
+
+
+POST http://{{Host}}:{{Port}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "password": "123456",
+    "login": "1@mail.ru"
+}
+
 ###

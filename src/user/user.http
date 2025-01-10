@@ -3,7 +3,7 @@
 @Host= localhost
 @Port= 3000
 
-@ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTVlMjF4dXgwMDAzczc5cDRueXZzeHVrIiwicm9sZSI6IlVzZXIiLCJkZXBhcnRtZW50IjoiUGFybmFzIiwiaWF0IjoxNzM1NzQ1NDk4LCJleHAiOjE3MzU3ODE0OTh9.Grecgkrko6zdki-iyCAuRuEvmAoubScwPuP2tBerMRk
+@ApiKey = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbTVxbzIzbG8wMDAxczdjaTM2NWhrdGk0Iiwicm9sZSI6IlVzZXIiLCJkZXBhcnRtZW50IjoiUGFybmFzIiwiaWF0IjoxNzM2NTA4MTkxLCJleHAiOjE3MzY1MDgyNTF9.WePmc7OEr-0uTvr7wr4FyFrjLcCeCTio6PY_J_sF42M
 
 GET   http://{{Host}}:{{Port}}/api/user/account HTTP/1.1
 Content-Type: application/json
@@ -14,5 +14,15 @@ Authorization: {{ApiKey}}
 GET   http://{{Host}}:{{Port}}/api/user/all HTTP/1.1
 Content-Type: application/json
 Authorization: {{ApiKey}}
+
+###
+//par_user_c35282bb
+
+GET   http://{{Host}}:{{Port}}/api/user/logina HTTP/1.1
+Content-Type: application/json
+
+{
+    "login": "par_user_76defc22"
+}
 
 ###

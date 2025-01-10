@@ -3,7 +3,7 @@ import { Transform } from 'class-transformer';
 import { IsNumber, IsOptional, IsIn, IsString } from 'class-validator';
 
 const DEFAULT_IDEA_LIMIT = 10;
-const DEFAULT_SORT_DIRECTION = 'desc';
+const DEFAULT_SORT_DIRECTION = 'asc';
 
 export class IdeaQuery {
   @Transform(({ value }) => Number(value) || DEFAULT_IDEA_LIMIT)
@@ -22,4 +22,15 @@ export class IdeaQuery {
   @IsString()
   @IsOptional()
   public department?: Location = undefined;
+
+  @IsString()
+  @IsOptional()
+  public sortOptions?: SortDirectionOptions = undefined;
 }
+
+export type SortDirectionOptions =
+  | 'CreatedAt'
+  | 'Popularity'
+  | 'New'
+  | 'Completed'
+  | 'Canceled';

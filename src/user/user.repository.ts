@@ -12,12 +12,20 @@ export class UserRepository
   constructor(private readonly prisma: PrismaService) {}
 
   public async findMany(): Promise<User[]> {
-    return await this.prisma.user.findMany();
+    return await this.prisma.user.findMany({
+      orderBy: { createdAt: 'asc' },
+    });
   }
 
   public async findById(id: string): Promise<User> {
-    return await this.prisma.user.findFirst({
+    return await this.prisma.user.findUnique({
       where: { id },
+    });
+  }
+
+  public async findByLogin(login: string): Promise<User> {
+    return await this.prisma.user.findUnique({
+      where: { login },
     });
   }
 

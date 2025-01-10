@@ -10,9 +10,9 @@ export class RefreshTokenRepository
 {
   constructor(private readonly prisma: PrismaService) {}
 
-  public async findById(id: string): Promise<RefreshTokenPayload | null> {
-    return await this.prisma.refreshToken.findFirst({
-      where: { sub: id },
+  public async findById(tokenId: string): Promise<RefreshTokenPayload | null> {
+    return await this.prisma.refreshToken.findUnique({
+      where: { tokenId },
     });
   }
 
@@ -36,7 +36,7 @@ export class RefreshTokenRepository
     });
   }
 
-  public async destroy(id: string): Promise<void> {
-    await this.prisma.refreshToken.deleteMany({ where: { sub: id } });
+  public async destroy(userId: string): Promise<void> {
+    await this.prisma.refreshToken.deleteMany({ where: { sub: userId } });
   }
 }

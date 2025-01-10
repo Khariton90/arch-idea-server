@@ -21,6 +21,7 @@ export class RefreshTokenEntity
   }
 
   public fillEntity(entity: RefreshTokenPayload): void {
+    this.id = entity.id;
     this.modelName = entity.modelName;
     this.tokenId = entity.tokenId;
     this.sub = entity.sub;

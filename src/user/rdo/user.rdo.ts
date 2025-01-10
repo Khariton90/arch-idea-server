@@ -1,10 +1,21 @@
 import { replaceNullWithEmpty } from '@core';
 import { ApiProperty } from '@nestjs/swagger';
-import { UserStatus } from '@shared-types';
+import { UserRole, UserStatus } from '@shared-types';
 import { Expose, Transform } from 'class-transformer';
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UserRdo {
+  @Expose()
+  login: string;
+
+  @ApiProperty({
+    description: 'User Role',
+    required: true,
+    example: 'User',
+  })
+  @Expose()
+  role: UserRole;
+
   @ApiProperty({
     description: 'Unique ID',
     required: true,
@@ -113,4 +124,12 @@ export class UserResponseDto {
   @IsString()
   @Transform(({ value }) => replaceNullWithEmpty(value))
   lastName: string;
+}
+
+export class UserListRdo extends UserRdo {
+  @Expose()
+  role: UserRole;
+
+  @Expose()
+  login: string;
 }

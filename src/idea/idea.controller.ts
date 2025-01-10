@@ -5,6 +5,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Put,
   Query,
   Req,
   UseGuards,
@@ -17,6 +18,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { fillObject } from '@core';
 import { IdeaRdo } from './rdo/idea.rdo';
 import { IdeaQuery } from './query/idea.query';
+import { CreateIdeaSolutionDto } from './dto/create-idea-solution.dto';
 
 @ApiTags('Idea')
 @Controller('idea')
@@ -87,5 +89,22 @@ export class IdeaController {
   })
   async findById(@Param('id') ideaId: string, @Req() { user }: UserRequest) {
     return fillObject(IdeaRdo, this.ideaService.findOne(ideaId, user.sub));
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put('create-solution/:id')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Create an idea solution',
+  })
+  async createSolution(
+    @Param('id') ideaId: string,
+    @Body() dto: CreateIdeaSolutionDto,
+    @Req() { user }: UserRequest,
+  ) {
+    return fillObject(
+      IdeaRdo,
+      this.ideaService.createSolution(ideaId, user.sub, dto),
+    );
   }
 }

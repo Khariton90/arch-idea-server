@@ -16,6 +16,7 @@ export class IdeaEntity implements Entity<IdeaEntity>, Idea {
   subDepartment: SubDepartment;
   priority: Priority;
   status: IdeaStatus;
+  solution: string;
   dislikesCount?: number;
   likesCount?: number;
   createdAt?: Date;
@@ -24,6 +25,8 @@ export class IdeaEntity implements Entity<IdeaEntity>, Idea {
   constructor(idea: Idea) {
     this.fillEntity(idea);
   }
+
+  favoriteIdeasCount?: number;
 
   public toObject() {
     return { ...this };
@@ -37,5 +40,6 @@ export class IdeaEntity implements Entity<IdeaEntity>, Idea {
     this.subDepartment = entity.subDepartment;
     this.priority = entity.priority;
     this.status = entity.status || 'New';
+    this.solution = entity.solution;
   }
 }
