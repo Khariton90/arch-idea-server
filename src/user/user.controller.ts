@@ -5,6 +5,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -16,22 +17,35 @@ import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateUserOptionsDto } from './dto/update-user-options.dto';
+import { UserQuery } from './query/user.query';
 
 @ApiTags('User')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @UseGuards(JwtAuthGuard)
+  @Get('totalCount')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Find total count',
+  })
+  async findTotalCount() {
+    return await this.userService.findTotalCount();
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get('all')
   @ApiResponse({
     status: HttpStatus.OK,
-    type: [UserRdo],
+    type: UserListRdo,
     description: 'The full list of users has been received',
   })
-  async findMany() {
-    return fillObject(UserListRdo, this.userService.findMany());
+  async findMany(@Query() query: UserQuery) {
+    return fillObject(UserListRdo, this.userService.findMany(query));
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('create')
   @ApiResponse({
     status: HttpStatus.CREATED,
@@ -40,11 +54,6 @@ export class UserController {
   })
   async create(@Body() dto: any) {
     return fillObject(UserRdo, this.userService.create(dto));
-  }
-
-  @Get('logina')
-  async logina(@Body() dto: any) {
-    return this.userService.findByLogin(dto.login);
   }
 
   @UseGuards(JwtAuthGuard)

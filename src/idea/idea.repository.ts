@@ -15,18 +15,30 @@ export class IdeaRepository {
   }
 
   public async findMany(
-    { limit, sortDirection, page, department, sortOptions }: IdeaQuery,
+    {
+      limit,
+      page,
+      department,
+      sortOptions,
+      sortDirection,
+      status,
+      priority,
+      subDepartment,
+    }: IdeaQuery,
     userId: string,
   ) {
-    const where = department ? { department } : {};
-
-    const createdAt =
-      sortOptions === 'CreatedAt' || sortDirection ? 'asc' : undefined;
+    const createdAt = sortOptions === 'CreatedAt' ? 'asc' : undefined;
 
     const items = await this.prisma.idea.findMany({
-      where,
+      where: {
+        department,
+        status,
+        priority,
+        subDepartment,
+      },
       take: limit,
       orderBy: [
+        { createdAt: sortDirection },
         {
           createdAt,
         },
@@ -66,12 +78,13 @@ export class IdeaRepository {
   }
 
   public async findUserIdeas(
-    { limit, sortDirection, page }: IdeaQuery,
+    { limit, sortDirection, page, status }: IdeaQuery,
     userId: string,
   ) {
     const ideas = await this.prisma.idea.findMany({
       where: {
         userId,
+        status,
       },
       take: limit,
       orderBy: [{ createdAt: sortDirection }],
@@ -100,11 +113,12 @@ export class IdeaRepository {
   }
 
   public async findFavoriteIdeas(
-    { limit, sortDirection, page }: IdeaQuery,
+    { limit, sortDirection, page, status }: IdeaQuery,
     userId: string,
   ): Promise<Idea[]> {
     const ideas = await this.prisma.idea.findMany({
       where: {
+        status,
         favoriteIdea: {
           some: {
             userId,
@@ -164,6 +178,13 @@ export class IdeaRepository {
       reactionType: getReactionType(isLiked, isDisliked),
       ...idea,
     };
+  }
+
+  public async findCompletedIdeasCount(userId: string) {
+    const ideas = await this.prisma.idea.findMany({
+      where: { userId, status: 'Completed' },
+    });
+    return ideas.length;
   }
 
   public async create(item: IdeaEntity): Promise<Idea> {

@@ -69,7 +69,7 @@ model User {
     dislikes           Dislike[]
     isDeleted          Boolean?
     login              String         @unique
-    passwordHash       String?
+    passwordHash       String?       
     createdAt          DateTime?      @default(now())
     updatedAt          DateTime?      @updatedAt 
 }
@@ -100,9 +100,9 @@ model Idea {
     subDepartment   SubDepartment
     priority        Priority       @default(Low)
     favoriteIdea    FavoriteIdea[] @relation("Favorites")
-    comment Comment[]
-    likes Like[]
-    dislikes Dislike[]
+    comment         Comment[]
+    likes           Like[]
+    dislikes        Dislike[]
     status          IdeaStatus?    @default(New)
     createdAt       DateTime?      @default(now())
     updatedAt       DateTime?      @updatedAt 

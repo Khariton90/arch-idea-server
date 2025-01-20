@@ -12,8 +12,21 @@ import { DepartmentRepository } from '../department/department.repository';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDeletedException } from './exceptions/user-deleted.exception';
 import { UpdateUserOptionsDto } from './dto/update-user-options.dto';
+import { UserStatus } from '@shared-types';
+import { UserQuery } from './query/user.query';
+import { mappingStatus, UNAUTHORIZED_MESSAGE } from './user.constants';
 
-const UNAUTHORIZED_MESSAGE = 'Access is denied';
+function getStatusFromNumber(number: number): UserStatus | undefined {
+  let status: UserStatus | undefined;
+
+  for (const item in mappingStatus) {
+    if (number <= mappingStatus[item]) {
+      return (status = item as UserStatus);
+    }
+  }
+
+  return status;
+}
 
 @Injectable()
 export class UserService {
@@ -21,6 +34,14 @@ export class UserService {
     private readonly userRepository: UserRepository,
     private readonly departmentRepository: DepartmentRepository,
   ) {}
+
+  public async findTotalCount() {
+    try {
+      return await this.userRepository.findTotalCount();
+    } catch {
+      return 0;
+    }
+  }
 
   public async create(dto: CreateUserDto) {
     const department = await this.departmentRepository.findQrCode(dto.sub);
@@ -53,12 +74,22 @@ export class UserService {
   }
 
   public async findByLogin(login: string) {
-    return await this.userRepository.findByLogin(login);
+    try {
+      const user = await this.userRepository.findByLogin(login);
+
+      if (user.isDeleted) {
+        throw new UnauthorizedException(UNAUTHORIZED_MESSAGE);
+      }
+
+      return user;
+    } catch {
+      throw new NotFoundException();
+    }
   }
 
-  public async findMany() {
+  public async findMany(query: UserQuery) {
     try {
-      return this.userRepository.findMany();
+      return await this.userRepository.findMany(query);
     } catch {
       throw new BadRequestException();
     }
@@ -85,6 +116,23 @@ export class UserService {
       throw new NotFoundException();
     } catch {
       throw new BadRequestException();
+    }
+  }
+
+  public async updateUserStatus(id: string, completedCount: number) {
+    try {
+      const existUser = await this.userRepository.findById(id);
+
+      if (existUser) {
+        const entity = new UserEntity({
+          ...existUser,
+          status: getStatusFromNumber(completedCount),
+        });
+
+        await this.userRepository.update(id, entity);
+      }
+    } catch {
+      throw new NotFoundException();
     }
   }
 

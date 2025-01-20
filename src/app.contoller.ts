@@ -7,12 +7,10 @@ import {
   Post,
   Res,
   UploadedFile,
-  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { UseFileInterceptor } from './interceptors/use-file.interceptor';
 import { IsOptional, IsString } from 'class-validator';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { Response } from 'express';
 
 export class CreateFileDto {
@@ -29,14 +27,17 @@ export class AppController {
     @UploadedFile() file: Express.Multer.File,
     @Body() dto: CreateFileDto,
   ) {
-    return {
-      filename: file.filename,
-      size: file.size,
-      dto,
-    };
+    try {
+      return {
+        filename: file.filename,
+        size: file.size,
+        dto,
+      };
+    } catch {
+      throw new NotFoundException();
+    }
   }
 
-  // @UseGuards(JwtAuthGuard)
   @Get(':filename')
   findOne(@Param('filename') image: string, @Res() res: Response) {
     try {

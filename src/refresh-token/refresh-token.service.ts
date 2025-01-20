@@ -1,4 +1,9 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { RefreshTokenRepository } from './refresh-token.repository';
 import { jwtOptions } from 'src/config/jwt.config';
 import { ConfigType } from '@nestjs/config';
@@ -21,15 +26,26 @@ export class RefreshTokenService {
       createdAt: new Date(),
     });
 
-    return await this.refreshTokenRepository.create(refreshToken);
+    try {
+      return await this.refreshTokenRepository.create(refreshToken);
+    } catch {
+      throw new UnauthorizedException();
+    }
   }
 
   public async existToken(tokenId: string) {
-    const refreshToken = await this.refreshTokenRepository.findById(tokenId);
-    return refreshToken;
+    try {
+      return await this.refreshTokenRepository.findById(tokenId);
+    } catch {
+      throw new UnauthorizedException();
+    }
   }
 
   public async deleteRefreshSession(userId: string) {
-    await this.refreshTokenRepository.destroy(userId);
+    try {
+      await this.refreshTokenRepository.destroy(userId);
+    } catch {
+      throw new BadRequestException();
+    }
   }
 }

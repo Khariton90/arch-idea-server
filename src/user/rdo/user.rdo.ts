@@ -1,8 +1,13 @@
 import { replaceNullWithEmpty } from '@core';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
 import { UserRole, UserStatus } from '@shared-types';
-import { Expose, Transform } from 'class-transformer';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { Expose, Transform, Type } from 'class-transformer';
+import {
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 
 export class UserRdo {
   @Expose()
@@ -126,10 +131,19 @@ export class UserResponseDto {
   lastName: string;
 }
 
-export class UserListRdo extends UserRdo {
+export class UserListRdo {
+  @ApiProperty({
+    type: 'array',
+    items: { $ref: getSchemaPath(UserRdo) },
+    description: 'User list',
+  })
   @Expose()
-  role: UserRole;
+  @Type(() => UserRdo)
+  @ValidateNested({ each: true })
+  @Expose()
+  users: UserRdo[];
 
+  @ApiProperty({ type: Number, description: 'Total user list count' })
   @Expose()
-  login: string;
+  count: number;
 }

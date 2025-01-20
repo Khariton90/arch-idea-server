@@ -19,7 +19,11 @@ export class CommentService {
   }
 
   public async findAll(query: CommentQuery, ideaId: string) {
-    return await this.commentRepository.findMany(query, ideaId);
+    try {
+      return await this.commentRepository.findMany(query, ideaId);
+    } catch {
+      return [];
+    }
   }
 
   public async findOne(id: string) {

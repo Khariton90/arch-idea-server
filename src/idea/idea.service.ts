@@ -12,10 +12,14 @@ import {
   NOT_FOUND_IDEA_MESSAGE,
 } from './idea.constant';
 import { CreateIdeaSolutionDto } from './dto/create-idea-solution.dto';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class IdeaService {
-  constructor(private readonly ideaRepository: IdeaRepository) {}
+  constructor(
+    private readonly ideaRepository: IdeaRepository,
+    private readonly userService: UserService,
+  ) {}
 
   public async findCount(query: IdeaQuery) {
     try {
@@ -84,7 +88,15 @@ export class IdeaService {
         status: dto.status,
       });
 
-      return await this.ideaRepository.update(ideaId, entity);
+      const updatedIdea = await this.ideaRepository.update(ideaId, entity);
+
+      if (updatedIdea.status === 'Completed') {
+        const completedCount =
+          await this.ideaRepository.findCompletedIdeasCount(userId);
+        await this.userService.updateUserStatus(userId, completedCount);
+      }
+
+      return updatedIdea;
     } catch {
       throw new BadRequestException();
     }

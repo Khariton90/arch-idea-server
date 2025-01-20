@@ -51,7 +51,7 @@ export class UserEntity implements Entity<UserEntity>, User {
     this.firstName = user.firstName ?? DEFAULT_USER_NAME;
     this.lastName = user.lastName ?? DEFAULT_USER_LASTNAME;
     this.role = user.role ?? 'User';
-    this.status = user.status ?? 'NotVerified';
+    this.status = user.status ?? 'Spec';
     this.favoriteIdeasCount = user.favoriteIdeasCount ?? 0;
     this.myIdeasCount = user.myIdeasCount ?? 0;
     this.isDeleted = user.isDeleted ?? false;

@@ -27,10 +27,14 @@ export class AuthService {
   ) {}
 
   public async register(dto: CreateUserDto) {
-    const user = await this.userService.create(dto);
+    try {
+      const user = await this.userService.create(dto);
 
-    if (user) {
-      return await this.loginUser(user, dto.modelName);
+      if (user) {
+        return await this.loginUser(user, dto.modelName);
+      }
+    } catch {
+      throw new BadRequestException();
     }
   }
 
