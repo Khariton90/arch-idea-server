@@ -14,6 +14,10 @@ export class IdeaRepository {
     return await this.prisma.idea.count({ where });
   }
 
+  public async findOne(id: string) {
+    return await this.prisma.idea.findUnique({ where: { id } });
+  }
+
   public async findMany(
     {
       limit,
@@ -207,6 +211,7 @@ export class IdeaRepository {
 
   public async update(id: string, item: IdeaEntity) {
     const data = item.toObject();
+
     const idea = await this.prisma.idea.update({
       where: { id },
       data: { ...data },

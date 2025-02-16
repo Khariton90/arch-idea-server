@@ -9,6 +9,14 @@ import { CommentQuery } from './query/comment.query';
 export class CommentService {
   constructor(private readonly commentRepository: CommentRepository) {}
 
+  public async findCount(id: string) {
+    try {
+      return await this.commentRepository.findTotalCount(id);
+    } catch {
+      return 0;
+    }
+  }
+
   public async create(dto: CreateCommentDto, userId: string, ideaId: string) {
     const entity = new CommentEntity({ ...dto, userId, ideaId });
     try {

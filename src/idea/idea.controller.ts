@@ -19,6 +19,7 @@ import { fillObject } from '@core';
 import { IdeaRdo } from './rdo/idea.rdo';
 import { IdeaQuery } from './query/idea.query';
 import { CreateIdeaSolutionDto } from './dto/create-idea-solution.dto';
+import { UpdateIdeaDto } from './dto/update-idea.dto';
 
 @ApiTags('Idea')
 @Controller('idea')
@@ -105,6 +106,23 @@ export class IdeaController {
     return fillObject(
       IdeaRdo,
       this.ideaService.createSolution(ideaId, user.sub, dto),
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put('update/:id')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Update Idea',
+  })
+  async update(
+    @Param('id') ideaId: string,
+    @Body() dto: UpdateIdeaDto,
+    @Req() { user }: UserRequest,
+  ) {
+    return fillObject(
+      IdeaRdo,
+      this.ideaService.updateIdea(ideaId, user.sub, dto),
     );
   }
 }

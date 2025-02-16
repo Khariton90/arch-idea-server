@@ -24,6 +24,17 @@ export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @UseGuards(JwtAuthGuard)
+  @Get('/totalCount/:ideaId')
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    type: CommentRdo,
+    description: 'Created a new comment',
+  })
+  async findCount(@Param('ideaId') ideaId: string) {
+    return await this.commentService.findCount(ideaId);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Post('/:ideaId')
   @ApiResponse({
     status: HttpStatus.CREATED,

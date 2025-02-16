@@ -11,6 +11,12 @@ export class CommentRepository
 {
   constructor(private readonly prisma: PrismaService) {}
 
+  public async findTotalCount(id: string) {
+    return await this.prisma.comment.count({
+      where: { ideaId: id },
+    });
+  }
+
   public async findById(id: string): Promise<Comment> {
     return await this.prisma.comment.findFirst({
       where: { id },

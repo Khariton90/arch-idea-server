@@ -13,6 +13,7 @@ import {
 } from './idea.constant';
 import { CreateIdeaSolutionDto } from './dto/create-idea-solution.dto';
 import { UserService } from 'src/user/user.service';
+import { UpdateIdeaDto } from './dto/update-idea.dto';
 
 @Injectable()
 export class IdeaService {
@@ -97,6 +98,25 @@ export class IdeaService {
       }
 
       return updatedIdea;
+    } catch {
+      throw new BadRequestException();
+    }
+  }
+
+  public async updateIdea(id: string, userId: string, dto: UpdateIdeaDto) {
+    try {
+      const existIdea = await this.ideaRepository.findOne(id);
+
+      if (
+        existIdea &&
+        userId === existIdea.userId &&
+        existIdea.status === 'New'
+      ) {
+        const updatedEntity = new IdeaEntity({ ...existIdea, ...dto });
+        return await this.ideaRepository.update(existIdea.id, updatedEntity);
+      }
+
+      throw new NotFoundException();
     } catch {
       throw new BadRequestException();
     }
